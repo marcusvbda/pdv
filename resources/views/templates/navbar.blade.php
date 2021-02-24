@@ -35,12 +35,13 @@ $polo = $user->polo;
 			<li class="nav-item {{ currentClass(['/admin']) }}">
 				<a class="nav-link" href="/admin"><i class="el-icon-data-line mr-2"></i>Dashboard <span class="sr-only">(current)</span></a>
 			</li>
-			<li class="nav-item dropdown {{ currentClass(['/admin/produtos/*']) }}">
+			<li class="nav-item dropdown {{ currentClass(['/admin/produtos/*','/admin/clientes/*']) }}">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="el-icon-s-flag mr-2"></i>Produtos
+					<i class="el-icon-star-off mr-2"></i>Cadastros
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item @if(!hasPermissionTo('viewlist-products')) disabled @endif {{ currentClass(['/admin/produtos/*'])  }}" href="/admin/produtos" data-label="Cadastro de Produtos">Produtos</a>
+					<a class="dropdown-item @if(!hasPermissionTo('viewlist-customers')) disabled @endif {{ currentClass(['/admin/clientes/*'])  }}" href="/admin/clientes" data-label="Cadastro de Clientes">Clientes</a>
+						<a class="dropdown-item @if(!hasPermissionTo('viewlist-products')) disabled @endif {{ currentClass(['/admin/produtos/*'])  }}" href="/admin/produtos" data-label="Cadastro de Produtos">Produtos</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown {{ currentClass(['/admin/relatorios/*']) }}">
@@ -48,8 +49,19 @@ $polo = $user->polo;
 					<i class="el-icon-data-analysis mr-2"></i>Relatórios
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item @if(!hasPermissionTo('report-products')) disabled @endif {{ currentClass(['/admin/relatorios/clientes/*'])  }}" href="/admin/relatorios/clientes" data-label="Relatório de Clientes">Clientes</a>
 					<a class="dropdown-item @if(!hasPermissionTo('report-products')) disabled @endif {{ currentClass(['/admin/relatorios/produtos/*'])  }}" href="/admin/relatorios/produtos" data-label="Relatório de Produtos">Produtos</a>
 				</div>
+			</li>
+			<li class="nav-item dropdown {{ currentClass(['/admin/campos-customizados/*']) }}">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="el-icon-setting mr-2"></i>Extras
+				</a>
+				@if(hasPermissionTo('viewlist-customfield'))
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item @if(!hasPermissionTo('viewlist-customfield')) disabled @endif {{ currentClass(['/admin/campos-customizados/*'])  }}" href="/admin/campos-customizados" data-label="Campos Configurações Dinamicamente">Campos Customizados</a>
+					</div>
+				@endif
 			</li>
 		</ul>
 		<select-polo polo_name="{{ $polo->name }}" user_id="{{ $user->id }}" :logged_id='@json($polo->id)'></select-polo>

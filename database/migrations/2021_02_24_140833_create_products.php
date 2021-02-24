@@ -15,6 +15,9 @@ class CreateProducts extends Migration
 			$table->bigIncrements('id');
 			$table->string('name');
 			$table->longtext('description');
+			$table->integer('price')->default(0);
+			$table->integer('weigth')->default(0);
+			$table->jsonb('custom_fields');
 			$table->unsignedBigInteger('polo_id')->nullable();
 			$table->foreign('polo_id')
 				->references('id')
