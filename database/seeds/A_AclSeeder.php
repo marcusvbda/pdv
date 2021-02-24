@@ -26,10 +26,11 @@ class A_AclSeeder extends Seeder
 		DB::table("permissions")->truncate();
 		Cache::flush('spatie.permission.cache');
 
-		// Permission::create(["group" => "Respostas de Contatos", "name" => "viewlist-leadanswer", "description" => "Ver Listagem de Respostas de Contatos"]);
-		// Permission::create(["group" => "Respostas de Contatos", "name" => "create-leadanswer", "description" => "Cadastrar Respostas de Contatos"]);
-		// Permission::create(["group" => "Respostas de Contatos", "name" => "edit-leadanswer", "description" => "Editar Respostas de Contatos"]);
-		// Permission::create(["group" => "Respostas de Contatos", "name" => "destroy-leadanswer", "description" => "Excluir Respostas de Contatos"]);
+		Permission::create(["group" => "Produtos", "name" => "viewlist-products", "description" => "Ver Listagem de Produtos"]);
+		Permission::create(["group" => "Produtos", "name" => "create-products", "description" => "Cadastrar Produtos"]);
+		Permission::create(["group" => "Produtos", "name" => "edit-products", "description" => "Editar Produtos"]);
+		Permission::create(["group" => "Produtos", "name" => "destroy-products", "description" => "Excluir Produtos"]);
+		Permission::create(["group" => "Produtos", "name" => "report-products", "description" => "Ver Relatório de  Produtos"]);
 	}
 
 	private function createRoles()

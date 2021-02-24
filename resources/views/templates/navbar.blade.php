@@ -48,10 +48,7 @@ $polo = $user->polo;
 					<i class="el-icon-data-analysis mr-2"></i>Relatórios
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item @if(!hasPermissionTo('view-leads-report')) disabled @endif {{ currentClass(['/admin/relatorios/leads/*'])  }}" href="/admin/relatorios/leads" data-label="Relatório de Leads">Leads</a>
-					<a class="dropdown-item @if(!hasPermissionTo('campaign-report')) disabled @endif {{ currentClass(['/admin/relatorios/campanhas/*'])  }}" href="/admin/relatorios/campanhas" data-label="Relatório de Campanhas">Campanha</a>
-					<a class="dropdown-item @if(!hasPermissionTo('capture-report')) disabled @endif {{ currentClass(['/admin/relatorios/captacao/*'])  }}" href="/admin/relatorios/captacao" data-label="Relatório de Captação">Captação</a>
-					<a class="dropdown-item @if(!hasPermissionTo('report-automation')) disabled @endif {{ currentClass(['/admin/relatorios/automacoes-customizadas/*'])  }}" href="/admin/relatorios/automacoes-customizadas" data-label="Relatório de Automações Customizadas">Automação</a>
+					<a class="dropdown-item @if(!hasPermissionTo('report-products')) disabled @endif {{ currentClass(['/admin/relatorios/produtos/*'])  }}" href="/admin/relatorios/produtos" data-label="Relatório de Produtos">Produtos</a>
 				</div>
 			</li>
 		</ul>
