@@ -50,6 +50,7 @@ class CamposCustomizados extends Resource
 		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
 		$columns["name"] = ["label" => "Nome"];
 		$columns["card"] = ["label" => "Nome do Card"];
+		$columns["resource"] = ["label" => "Recurso"];
 		$columns["type"] = ["label" => "Tipo"];
 		return $columns;
 	}
