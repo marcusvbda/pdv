@@ -8,6 +8,8 @@ class CustomField extends DefaultModel
 {
 	protected $table = "custom_fields";
 	public $casts = [
+		"show_in_list" => "boolean",
+		"make_filter" => "boolean",
 		"required" => "boolean",
 		"options" => "array",
 	];

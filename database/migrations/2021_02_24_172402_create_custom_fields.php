@@ -19,6 +19,9 @@ class CreateCustomFields extends Migration
 			$table->string('resource');
 			$table->string('field');
 			$table->string('type');
+			$table->boolean('make_filter')->default(true);
+			$table->boolean('show_in_report')->default(true);
+			$table->boolean('show_in_list')->default(false);
 			$table->boolean('required')->default(true);
 			$table->longText('options')->nullable();
 			$table->unsignedBigInteger('tenant_id');

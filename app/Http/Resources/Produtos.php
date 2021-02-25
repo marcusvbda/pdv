@@ -8,6 +8,7 @@ use marcusvbda\vstack\Fields\{
 	Text,
 };
 use App\Http\Models\Product;
+use App\Http\Filters\FilterByCustomFields;
 
 class Produtos extends Resource
 {
@@ -86,6 +87,15 @@ class Produtos extends Resource
 		return false;
 	}
 
+	public function filters()
+	{
+		$filters = [];
+		foreach (CustomField::where("resource", "clientes")->where("make_filter", true)->get() as $field) {
+			$filters[] = new FilterByCustomFields($field);
+		}
+		return $filters;
+	}
+
 	public function fields()
 	{
 		return [
@@ -102,9 +112,13 @@ class Produtos extends Resource
 
 	public function export_columns()
 	{
-		return [
+		$fields = [
 			"code" => ["label" => "Código"],
 			"name" => ["label" => "Nome"],
 		];
+		foreach (CustomField::where("resource", "clientes")->where("show_in_report", true)->get() as $field) {
+			$fields[$field->field] = ["label" => $field->name];
+		}
+		return $fields;
 	}
 }

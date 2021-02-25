@@ -48,8 +48,8 @@ class CamposCustomizados extends Resource
 	{
 		$columns = [];
 		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
-		$columns["card"] = ["label" => "Nome do Card"];
 		$columns["name"] = ["label" => "Nome"];
+		$columns["card"] = ["label" => "Nome do Card"];
 		$columns["type"] = ["label" => "Tipo"];
 		return $columns;
 	}
@@ -140,6 +140,21 @@ class CamposCustomizados extends Resource
 					"label" => "Obrigatório",
 					"description" => "Se sim o campo será setado como required",
 					"field" => "required",
+					"default" => true
+				]),
+				new Check([
+					"label" => "Mostrar na listagem do Recurso",
+					"field" => "show_in_list",
+					"default" => true
+				]),
+				new Check([
+					"label" => "Mostrar no relatório",
+					"field" => "show_in_report",
+					"default" => true
+				]),
+				new Check([
+					"label" => "Criar Filtro",
+					"field" => "make_filter",
 					"default" => true
 				]),
 			])

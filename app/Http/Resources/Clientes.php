@@ -8,8 +8,9 @@ use marcusvbda\vstack\Fields\{
 	Text,
 	CustomComponent,
 };
-use App\Http\Models\{Customer};
+use App\Http\Models\{Customer, CustomField};
 use marcusvbda\ValidadorCpfCnpj\Documento as ValidatorDoc;
+use App\Http\Filters\FilterByCustomFields;
 
 class Clientes extends Resource
 {
@@ -47,6 +48,9 @@ class Clientes extends Resource
 		$columns["name"] = ["label" => "Nome"];
 		$columns["doc"] = ["label" => "CPF"];
 		$columns["email"] = ["label" => "Email"];
+		foreach (CustomField::where("resource", "clientes")->where("show_in_list", true)->get() as $field) {
+			$columns[$field->field] = ["label" => $field->name, "sortable_index" => "custom_fields->" . $field->field];
+		}
 		return $columns;
 	}
 
@@ -88,6 +92,15 @@ class Clientes extends Resource
 	public function canView()
 	{
 		return false;
+	}
+
+	public function filters()
+	{
+		$filters = [];
+		foreach (CustomField::where("resource", "clientes")->where("make_filter", true)->get() as $field) {
+			$filters[] = new FilterByCustomFields($field);
+		}
+		return $filters;
 	}
 
 	public function fields()
@@ -132,7 +145,7 @@ class Clientes extends Resource
 				]),
 			],
 			"Localização" => [
-				new CustomComponent("<customer-address :form='form' :data='data' :errors='errors' />", [
+				new CustomComponent("<address-component :form='form' :data='data' :errors='errors' />", [
 					"field" => "address",
 					"label" => "Endereço",
 				])
@@ -147,9 +160,13 @@ class Clientes extends Resource
 
 	public function export_columns()
 	{
-		return [
+		$fields = [
 			"code" => ["label" => "Código"],
 			"name" => ["label" => "Nome"],
 		];
+		foreach (CustomField::where("resource", "clientes")->where("show_in_report", true)->get() as $field) {
+			$fields[$field->field] = ["label" => $field->name];
+		}
+		return $fields;
 	}
 }
