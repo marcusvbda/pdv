@@ -5,9 +5,13 @@ namespace App\Http\Resources;
 use marcusvbda\vstack\Resource;
 use marcusvbda\vstack\Fields\{
 	Card,
+	Check,
 	Text,
+	TextArea,
+	Upload
 };
-use App\Http\Models\Product;
+use App\Http\Models\{Product, CustomField};
+
 use App\Http\Filters\FilterByCustomFields;
 
 class Produtos extends Resource
@@ -44,6 +48,7 @@ class Produtos extends Resource
 		$columns = [];
 		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
 		$columns["name"] = ["label" => "Nome"];
+		$columns["f_price"] = ["label" => "Preço"];
 		return $columns;
 	}
 
@@ -90,7 +95,7 @@ class Produtos extends Resource
 	public function filters()
 	{
 		$filters = [];
-		foreach (CustomField::where("resource", "clientes")->where("make_filter", true)->get() as $field) {
+		foreach (CustomField::where("resource", $this->id)->where("make_filter", true)->get() as $field) {
 			$filters[] = new FilterByCustomFields($field);
 		}
 		return $filters;
@@ -98,16 +103,49 @@ class Produtos extends Resource
 
 	public function fields()
 	{
-		return [
-			new Card("Identificação",  [
+		$fields = [
+			"Identificação" => [
+				new Upload([
+					"label" => "Imagens",
+					"field" => "images",
+					"preview"  => true,
+					"multiple" => true,
+					"limit" => 3,
+					"accept" => "image/*",
+					"list_type" => "picture-card"
+				]),
 				new Text([
 					"label" => "Nome",
 					"description" => "Indentificação do Produto",
 					"field" => "name",
 					"rules" => ["required", "max:255"]
 				]),
-			])
+				new TextArea([
+					"label" => "Descrição",
+					"field" => "description",
+				]),
+			],
+			"Características" => [
+				new Text([
+					"label" => "Preço",
+					"description" => "Preço Unitário ou por Kgs do produto",
+					"field" => "price",
+					"type" => "number",
+					"rules" => ["required", "min:0.01"]
+				]),
+				new Check([
+					"label" => "Permitir estoque negativo",
+					"description" => "Permitir que este produto seja adicionado a uma venda caso seu estoque for zero ou menos, lembrando que ao cadastrar o produto inicialmente seu estoque será zero",
+					"field" => "without_qty",
+					"default" => true
+				]),
+			]
 		];
+		$cards = [];
+		foreach (withCustomFields($this->id, $fields) as $key => $value) {
+			$cards[] = new Card($key, $value);
+		}
+		return $cards;
 	}
 
 	public function export_columns()
@@ -116,7 +154,7 @@ class Produtos extends Resource
 			"code" => ["label" => "Código"],
 			"name" => ["label" => "Nome"],
 		];
-		foreach (CustomField::where("resource", "clientes")->where("show_in_report", true)->get() as $field) {
+		foreach (CustomField::where("resource", $this->id)->where("show_in_report", true)->get() as $field) {
 			$fields[$field->field] = ["label" => $field->name];
 		}
 		return $fields;

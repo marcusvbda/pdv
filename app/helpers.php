@@ -122,3 +122,13 @@ function withCustomFields($resource, $fields)
 	}
 	return $fields;
 }
+
+function priceToInt($value)
+{
+	return intval(round($value * 100));
+}
+
+function intToPrice($value)
+{
+	return $value / 100;
+}

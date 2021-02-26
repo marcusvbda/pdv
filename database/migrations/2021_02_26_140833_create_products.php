@@ -13,10 +13,12 @@ class CreateProducts extends Migration
 			$table->collation = 'utf8mb4_unicode_ci';
 			$table->engine = 'InnoDB';
 			$table->bigIncrements('id');
+			$table->longText('images')->nullable();
 			$table->string('name');
 			$table->longtext('description');
 			$table->integer('price')->default(0);
-			$table->integer('weigth')->default(0);
+			$table->boolean('without_qty')->default(true);
+			$table->integer('qty')->default(0);
 			$table->jsonb('custom_fields');
 			$table->unsignedBigInteger('polo_id')->nullable();
 			$table->foreign('polo_id')
