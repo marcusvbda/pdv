@@ -38,4 +38,26 @@ class Product extends PoloDefaultModel
 	{
 		return toMoney($this->price);
 	}
+
+	public function getFImageAttribute()
+	{
+		$image =  @$this->images[0];
+		if (!$image) return;
+		$div = "<div class='image-list-preview'>";
+		foreach ($this->images as $image) {
+			$div .= "<el-image 
+						class='image'
+						src='$image' 
+						:preview-src-list='" . json_encode($this->images) . "'>
+					</el-image>";
+		}
+		$div .= "</div>";
+		return $div;
+	}
+
+	public function getFQtyAttribute()
+	{
+		$qty = $this->qty;
+		return $qty . " Unidade" . ($qty > 1 ? 's' : '');
+	}
 }

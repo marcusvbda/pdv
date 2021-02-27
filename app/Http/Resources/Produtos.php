@@ -48,6 +48,8 @@ class Produtos extends Resource
 		$columns = [];
 		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
 		$columns["name"] = ["label" => "Nome"];
+		$columns["f_image"] = ["label" => "Imagem", "sortable" => false];
+		$columns["f_qty"] = ["label" => "Estoque", "sortable_index" => "qty"];
 		$columns["f_price"] = ["label" => "Preço"];
 		return $columns;
 	}
@@ -153,6 +155,8 @@ class Produtos extends Resource
 		$fields = [
 			"code" => ["label" => "Código"],
 			"name" => ["label" => "Nome"],
+			"f_qty" => ["label" => "Estoque"],
+			"price" => ["label" => "Preço"],
 		];
 		foreach (CustomField::where("resource", $this->id)->where("show_in_report", true)->get() as $field) {
 			$fields[$field->field] = ["label" => $field->name];
