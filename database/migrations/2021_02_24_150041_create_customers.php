@@ -15,11 +15,13 @@ class CreateCustomers extends Migration
 			$table->bigIncrements('id');
 			$table->string('name');
 			$table->string('email')->nullable();
+			$table->longtext('images')->nullable();
 			$table->string('doc')->nullable();
 			$table->string('phone')->nullable();
 			$table->string('cellphone')->nullable();
 			$table->jsonb('address')->nullable();
 			$table->jsonb('custom_fields')->nullable();
+			$table->boolean('accepted_terms')->default(false);
 			$table->unsignedBigInteger('polo_id')->nullable();
 			$table->foreign('polo_id')
 				->references('id')

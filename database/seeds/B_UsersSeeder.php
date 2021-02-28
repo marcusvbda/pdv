@@ -48,6 +48,7 @@ class B_UsersSeeder extends Seeder
 		$this->tenant = Tenant::create([
 			"name" => "Comercio Teste",
 			"data" => [
+				"term" => "<b>{name}</b>, lorem ipsum dolor ipsum ...",
 				"city" => "Marilia",
 				"state" => "São Paulo"
 			]

@@ -48,7 +48,7 @@ class Produtos extends Resource
 		$columns = [];
 		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
 		$columns["name"] = ["label" => "Nome"];
-		$columns["f_image"] = ["label" => "Imagem", "sortable" => false];
+		$columns["f_images"] = ["label" => "Imagem", "sortable" => false];
 		$columns["f_qty"] = ["label" => "Estoque", "sortable_index" => "qty"];
 		$columns["f_price"] = ["label" => "Preço"];
 		return $columns;

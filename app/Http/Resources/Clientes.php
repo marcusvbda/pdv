@@ -7,10 +7,12 @@ use marcusvbda\vstack\Fields\{
 	Card,
 	Text,
 	CustomComponent,
+	Upload
 };
 use App\Http\Models\{Customer, CustomField};
 use marcusvbda\ValidadorCpfCnpj\Documento as ValidatorDoc;
 use App\Http\Filters\FilterByCustomFields;
+use Illuminate\Support\Facades\Auth;
 
 class Clientes extends Resource
 {
@@ -46,8 +48,10 @@ class Clientes extends Resource
 		$columns = [];
 		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
 		$columns["name"] = ["label" => "Nome"];
+		$columns["f_images"] = ["label" => "Foto", "sortable" => false];
 		$columns["doc"] = ["label" => "CPF"];
 		$columns["email"] = ["label" => "Email"];
+		if (@Auth::user()->tenant) $columns["f_accepted_terms"] = ["label" => "Termo de Garantia", "sortable_index" => "accepted_terms"];
 		foreach (CustomField::where("resource", "clientes")->where("show_in_list", true)->get() as $field) {
 			$columns[$field->field] = ["label" => $field->name, "sortable_index" => "custom_fields->" . $field->field];
 		}
@@ -107,6 +111,15 @@ class Clientes extends Resource
 	{
 		$fields = [
 			"Identificação" => [
+				new Upload([
+					"label" => "Foto",
+					"field" => "images",
+					"preview"  => true,
+					"multiple" => true,
+					"limit" => 1,
+					"accept" => "image/*",
+					"list_type" => "picture-card"
+				]),
 				new Text([
 					"label" => "Nome",
 					"description" => "Nome completo do cliente",
@@ -163,6 +176,13 @@ class Clientes extends Resource
 		$fields = [
 			"code" => ["label" => "Código"],
 			"name" => ["label" => "Nome"],
+			"accepted_terms" => ["label" => "Termo de Garantia", "handler" => function ($row) {
+				$options = [
+					true => "Aceitou o termo",
+					false => "Não aceitou o termo",
+				];
+				return $options[$row->accepted_terms ?? false];
+			}],
 		];
 		foreach (CustomField::where("resource", $this->id)->where("show_in_report", true)->get() as $field) {
 			$fields[$field->field] = ["label" => $field->name];

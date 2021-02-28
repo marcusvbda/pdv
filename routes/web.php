@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\UsersController;
+use App\Http\Controllers\Auth\{UsersController, ModelApiController};
 
 Route::get('', function () {
 	return redirect("/admin"); //temporário até termos uma landing page
@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 });
 
+require "partials/terms.php";
 Route::get('user_invite/{tenant_id}/{invite_md5}', [UsersController::class, 'userCreate'])->middleware(['hashids:tenant_id'])->name("user.create");
 Route::post('user_invite/{tenant_id}/{invite_md5}', [UsersController::class, 'userConfirm'])->middleware(['hashids:tenant_id'])->name("user.confirm");
 

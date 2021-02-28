@@ -33,7 +33,7 @@ $polo = $user->polo;
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item {{ currentClass(['/admin']) }}">
-				<a class="nav-link" href="/admin"><i class="el-icon-data-line mr-2"></i>Dashboard <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/admin"><i class="el-icon-box mr-2"></i>Frente de Caixa <span class="sr-only">(current)</span></a>
 			</li>
 			<li class="nav-item dropdown {{ currentClass(['/admin/produtos/*','/admin/clientes/*']) }}">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

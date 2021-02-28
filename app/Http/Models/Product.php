@@ -39,7 +39,7 @@ class Product extends PoloDefaultModel
 		return toMoney($this->price);
 	}
 
-	public function getFImageAttribute()
+	public function getFImagesAttribute()
 	{
 		$image =  @$this->images[0];
 		if (!$image) return;
@@ -59,5 +59,10 @@ class Product extends PoloDefaultModel
 	{
 		$qty = $this->qty;
 		return $qty . " Unidade" . ($qty > 1 ? 's' : '');
+	}
+
+	public function tenant()
+	{
+		return $this->belongsTo(Tenant::class);
 	}
 }
