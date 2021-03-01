@@ -1,8 +1,8 @@
 <template>
     <div id="pdv-flux">
-        <divl class="row">
+        <div class="row">
             <div class="col-md-4 col-sm-12" v-loading="loading_products">{{ products.data }}</div>
-        </divl>
+        </div>
     </div>
 </template>
 <script>
@@ -20,8 +20,16 @@ export default {
     },
     created() {
         this.$nextTick(() => {
-            this.$store.dispatch('getProducts')
+            this.fetchData()
         })
+    },
+    methods: {
+        fetchData() {
+            this.fetchProducts()
+        },
+        fetchProducts() {
+            this.$store.dispatch('getProducts')
+        },
     },
 }
 </script>

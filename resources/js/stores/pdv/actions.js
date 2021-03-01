@@ -1,9 +1,11 @@
 import api from '~/config/libs/axios'
-
+const models = {
+	products: '\\App\\Http\\Models\\Product'
+}
 export function getProducts({ state, commit }) {
 	commit("setLoadingProducts", true)
 	let params = {
-		model: "\\App\\Http\\Models\\Product",
+		model: models.products,
 		per_page: 15
 	}
 	api.post("/vstack/json-api", params, { retries: 3 }).then(({ data }) => {
