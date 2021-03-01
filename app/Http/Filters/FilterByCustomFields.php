@@ -23,13 +23,16 @@ class FilterByCustomFields extends Filter
 					$this->options[] = (object) ["value" => $key + 1, "label" => $value];
 				}
 				break;
+			default:
+				$this->component = "text-filter";
+				break;
 		}
 		parent::__construct();
 	}
 
 	public function apply($query, $value)
 	{
-		switch ($this->component) {
+		switch (@$this->component) {
 			case "select-filter":
 				$value = $this->field_options[$value - 1];
 				break;
