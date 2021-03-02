@@ -8,7 +8,8 @@ use marcusvbda\vstack\Fields\{
 	Check,
 	Text,
 	TextArea,
-	Upload
+	Upload,
+	BelongsTo
 };
 use App\Http\Models\{Product, CustomField};
 
@@ -48,6 +49,7 @@ class Produtos extends Resource
 		$columns = [];
 		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
 		$columns["name"] = ["label" => "Nome"];
+		$columns["group->name"] = ["label" => "Grupo de Produto", "sortable_index" => "product_group_id"];
 		$columns["f_images"] = ["label" => "Imagem", "sortable" => false];
 		$columns["f_qty"] = ["label" => "Estoque", "sortable_index" => "qty"];
 		$columns["f_price"] = ["label" => "Preço"];
@@ -126,11 +128,18 @@ class Produtos extends Resource
 					"label" => "Descrição",
 					"field" => "description",
 				]),
+				new BelongsTo([
+					"label" => "Grupo de Produto",
+					"required" => true,
+					"description" => "Para classificação e melhor identificação do produto",
+					"model" => \App\Http\Models\ProductGroup::class,
+					"field" => "product_group_id"
+				])
 			],
 			"Características" => [
 				new Text([
 					"label" => "Preço",
-					"description" => "Preço Unitário ou por Kgs do produto",
+					"description" => "Preço Unitário do produto",
 					"field" => "price",
 					"type" => "number",
 					"rules" => ["required", "min:0.01"]

@@ -65,4 +65,9 @@ class Product extends PoloDefaultModel
 	{
 		return $this->belongsTo(Tenant::class);
 	}
+
+	public function group()
+	{
+		return $this->belongsTo(ProductGroup::class, "product_group_id", "id");
+	}
 }

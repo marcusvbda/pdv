@@ -1,7 +1,8 @@
 export default function () {
 	return {
-		products_loading: false,
-		products: {
+		categories_loading: false,
+		loading_products: {},
+		categories: {
 			data: []
 		}
 	}

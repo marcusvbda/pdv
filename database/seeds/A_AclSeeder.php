@@ -32,11 +32,18 @@ class A_AclSeeder extends Seeder
 		Permission::create(["group" => "Produtos", "name" => "destroy-products", "description" => "Excluir Produtos"]);
 		Permission::create(["group" => "Produtos", "name" => "report-products", "description" => "Ver Relatório de  Produtos"]);
 
+		Permission::create(["group" => "Produtos", "name" => "viewlist-products-groups", "description" => "Ver Listagem de Grupos de Produtos"]);
+		Permission::create(["group" => "Produtos", "name" => "create-products-groups", "description" => "Cadastrar Grupos de Produtos"]);
+		Permission::create(["group" => "Produtos", "name" => "edit-products-groups", "description" => "Editar Grupos de Produtos"]);
+		Permission::create(["group" => "Produtos", "name" => "destroy-products-groups", "description" => "Excluir Grupos de Produtos"]);
+
 		Permission::create(["group" => "Clientes", "name" => "viewlist-customers", "description" => "Ver Listagem de Clientes"]);
 		Permission::create(["group" => "Clientes", "name" => "create-customers", "description" => "Cadastrar Clientes"]);
 		Permission::create(["group" => "Clientes", "name" => "edit-customers", "description" => "Editar Clientes"]);
 		Permission::create(["group" => "Clientes", "name" => "destroy-customers", "description" => "Excluir Clientes"]);
 		Permission::create(["group" => "Clientes", "name" => "report-customers", "description" => "Ver Relatório de  Clientes"]);
+
+		Permission::create(["group" => "Configurações", "name" => "config-styles", "description" => "Configurar Estilos do Sistema"]);
 	}
 
 	private function createRoles()

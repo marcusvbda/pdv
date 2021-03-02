@@ -1,38 +1,37 @@
 import api from '~/config/libs/axios'
 const models = {
-	products: '\\App\\Http\\Models\\Product'
+	product_group: '\\App\\Http\\Models\\ProductGroup',
+	product: '\\App\\Http\\Models\\Product',
 }
-export function getProducts({ state, commit }) {
-	commit("setLoadingProducts", true)
+
+export function getCategories({ state, commit }) {
+	commit("setLoadingCategories", true)
 	let params = {
-		model: models.products,
-		per_page: 15
+		model: models.product_group,
+		per_page: 99999
 	}
 	api.post("/vstack/json-api", params, { retries: 3 }).then(({ data }) => {
-		commit('setProducts', data)
-		commit("setLoadingProducts", false)
+		commit('setCategories', data.data)
+		commit("setLoadingCategories", false)
 	})
 }
 
-// let filter_example = {
-// 	model: "\\App\\Http\\Models\\Product",
-// 	per_page: 15,
-// 	includes: ["tenant"],
-// 	fields: ["*"],
-// 	order_by: ["name", "desc"],
-// 	filters: {
-// 		where: {
-// 			name: {
-// 				like: "%bike%"
-// 			}, price: {
-// 				">=": 2100
-// 			}
-// 		},
-// 		where_in: {
-// 			id: [1]
-// 		},
-// 		where_not_in: {
-// 			id: [3]
-// 		}
-// 	}
-// }
+export function getProducts({ state, commit }, category_id) {
+	commit("setLoadingProducts", { category_id, value: true })
+	let params = {
+		model: models.product,
+		per_page: 15,
+		filters: {
+			order_by: ["name", "desc"],
+			where: {
+				product_group_id: {
+					"=": category_id
+				}
+			}
+		}
+	}
+	api.post("/vstack/json-api", params, { retries: 3 }).then(({ data }) => {
+		commit('setCategoryProducts', { category_id, data })
+		commit("setLoadingProducts", { category_id, value: false })
+	})
+}

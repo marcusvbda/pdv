@@ -22,6 +22,12 @@ $is_super_admin = $user->isSuperAdmin();
 $is_admin = $user->hasRole(["admin"]);
 $is_admin_or_super_admin = $user->hasRole(["admin","super-admin"]);
 $polo = $user->polo;
+
+function getMenuClass($permission,$array_current=[]) {
+	$class = "dropdown-item ".currentClass($array_current);
+	if(!hasPermissionTo($permission)) $class.= " disabled ";
+	return $class;
+}
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
 	<a class="navbar-brand py-0" href="/admin">
@@ -35,13 +41,21 @@ $polo = $user->polo;
 			<li class="nav-item {{ currentClass(['/admin']) }}">
 				<a class="nav-link" href="/admin"><i class="el-icon-box mr-2"></i>Frente de Caixa <span class="sr-only">(current)</span></a>
 			</li>
-			<li class="nav-item dropdown {{ currentClass(['/admin/produtos/*','/admin/clientes/*']) }}">
+			<li class="nav-item dropdown {{ currentClass(['/admin/produtos/*','/admin/grupos-de-produto/*']) }}">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="el-icon-star-off mr-2"></i>Cadastros
+					<i class="el-icon-s-flag mr-2"></i>Produtos
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item @if(!hasPermissionTo('viewlist-customers')) disabled @endif {{ currentClass(['/admin/clientes/*'])  }}" href="/admin/clientes" data-label="Cadastro de Clientes">Clientes</a>
-						<a class="dropdown-item @if(!hasPermissionTo('viewlist-products')) disabled @endif {{ currentClass(['/admin/produtos/*'])  }}" href="/admin/produtos" data-label="Cadastro de Produtos">Produtos</a>
+					<a class="{{ getMenuClass('viewlist-products-groups',['/admin/grupos-de-produtos/*']) }}" href="/admin/grupos-de-produto" data-label="Cadastro de Grupos de Produto">Grupos de Produto</a>
+					<a class="{{ getMenuClass('viewlist-products',['/admin/produtos/*']) }}" href="/admin/produtos" data-label="Cadastro de Produtos">Produtos</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown {{ currentClass(['/admin/clientes/*']) }}">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="el-icon-star-off mr-2"></i>Clientes
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="{{ getMenuClass('viewlist-customers',['/admin/clientes/*']) }}" href="/admin/clientes" data-label="Cadastro de Clientes">Clientes</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown {{ currentClass(['/admin/relatorios/*']) }}">
@@ -49,19 +63,22 @@ $polo = $user->polo;
 					<i class="el-icon-data-analysis mr-2"></i>Relatórios
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item @if(!hasPermissionTo('report-products')) disabled @endif {{ currentClass(['/admin/relatorios/clientes/*'])  }}" href="/admin/relatorios/clientes" data-label="Relatório de Clientes">Clientes</a>
-					<a class="dropdown-item @if(!hasPermissionTo('report-products')) disabled @endif {{ currentClass(['/admin/relatorios/produtos/*'])  }}" href="/admin/relatorios/produtos" data-label="Relatório de Produtos">Produtos</a>
+					<a class="{{ getMenuClass('report-customers',['/admin/relatorios/clientes/*']) }}" href="/admin/relatorios/clientes" data-label="Relatório de Clientes">Clientes</a>
+					<a class="{{ getMenuClass('report-products',['/admin/relatorios/produtos/*']) }}" href="/admin/relatorios/produtos" data-label="Relatório de Produtos">Produtos</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown {{ currentClass(['/admin/campos-customizados/*']) }}">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="el-icon-setting mr-2"></i>Extras
 				</a>
-				@if(hasPermissionTo('viewlist-customfield'))
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item @if(!hasPermissionTo('viewlist-customfield')) disabled @endif {{ currentClass(['/admin/campos-customizados/*'])  }}" href="/admin/campos-customizados" data-label="Campos Configurações Dinamicamente">Campos Customizados</a>
-					</div>
-				@endif
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="{{ getMenuClass('viewlist-customfield',['/admin/campos-customizados/*']) }}" href="/admin/campos-customizados" data-label="Campos Configurações Dinamicamente">
+						Campos Customizados
+					</a>
+					<a class="{{ getMenuClass('config-styles',['/admin/configuracoes/estilos/*']) }}" href="/admin/configuracoes/estilos" data-label="Estilos do Sistema">
+						Configurações de Estilos
+					</a>
+				</div>
 			</li>
 		</ul>
 		<select-polo polo_name="{{ $polo->name }}" user_id="{{ $user->id }}" :logged_id='@json($polo->id)'></select-polo>

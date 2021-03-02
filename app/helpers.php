@@ -132,3 +132,12 @@ function intToPrice($value)
 {
 	return $value / 100;
 }
+
+function getEnabledIcon($enabled = false)
+{
+	$icons = [
+		true => '🟢',
+		false => '🔴',
+	];
+	return @$icons[$enabled] ?? '🟡';
+}
