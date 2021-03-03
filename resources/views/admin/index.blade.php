@@ -2,7 +2,6 @@
 @section('title',"Frente de Caixa")
 
 @section('content')
-<pdv-flux
->
-</pdv-flux>
+<h1>Dashboard aqui</h1>
+{{-- <pdv-flux></pdv-flux> --}}
 @endsection

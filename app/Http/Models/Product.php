@@ -2,7 +2,7 @@
 
 namespace App\Http\Models;
 
-use App\Http\Models\Traits\HasCustomFields;
+use App\Http\Models\Traits\{HasCustomFields, CastNumbersToInt};
 
 class Product extends PoloDefaultModel
 {

@@ -7,11 +7,10 @@ const models = {
 export function getCategories({ state, commit }) {
 	commit("setLoadingCategories", true)
 	let params = {
-		model: models.product_group,
-		per_page: 99999
+		model: models.product_group
 	}
 	api.post("/vstack/json-api", params, { retries: 3 }).then(({ data }) => {
-		commit('setCategories', data.data)
+		commit('setCategories', data)
 		commit("setLoadingCategories", false)
 	})
 }
@@ -20,7 +19,7 @@ export function getProducts({ state, commit }, category_id) {
 	commit("setLoadingProducts", { category_id, value: true })
 	let params = {
 		model: models.product,
-		per_page: 15,
+		per_page: 5,
 		filters: {
 			order_by: ["name", "desc"],
 			where: {

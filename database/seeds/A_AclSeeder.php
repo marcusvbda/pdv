@@ -43,6 +43,10 @@ class A_AclSeeder extends Seeder
 		Permission::create(["group" => "Clientes", "name" => "destroy-customers", "description" => "Excluir Clientes"]);
 		Permission::create(["group" => "Clientes", "name" => "report-customers", "description" => "Ver Relatório de  Clientes"]);
 
+		Permission::create(["group" => "Caixas", "name" => "viewlist-cashiers", "description" => "Ver Listagem de Caixas"]);
+		Permission::create(["group" => "Caixas", "name" => "create-cashiers", "description" => "Cadastrar Caixas"]);
+		Permission::create(["group" => "Caixas", "name" => "report-cashiers", "description" => "Ver Relatório de  Caixas"]);
+
 		Permission::create(["group" => "Configurações", "name" => "config-styles", "description" => "Configurar Estilos do Sistema"]);
 	}
 

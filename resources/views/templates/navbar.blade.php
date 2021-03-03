@@ -39,15 +39,30 @@ function getMenuClass($permission,$array_current=[]) {
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item {{ currentClass(['/admin']) }}">
-				<a class="nav-link" href="/admin"><i class="el-icon-box mr-2"></i>Frente de Caixa <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="/admin"><i class="el-icon-s-marketing mr-2"></i>Dashboard <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item dropdown {{ currentClass(['/admin/caixas/*']) }}">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="el-icon-s-finance mr-2"></i>Caixas
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="{{ getMenuClass('viewlist-products-groups',['/admin/caixas/*']) }}" href="/admin/caixas" data-label="Caixas fechados e abertos">
+						Caixas
+					</a>
+				</div>
 			</li>
 			<li class="nav-item dropdown {{ currentClass(['/admin/produtos/*','/admin/grupos-de-produto/*']) }}">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="el-icon-s-flag mr-2"></i>Produtos
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="{{ getMenuClass('viewlist-products-groups',['/admin/grupos-de-produtos/*']) }}" href="/admin/grupos-de-produto" data-label="Cadastro de Grupos de Produto">Grupos de Produto</a>
-					<a class="{{ getMenuClass('viewlist-products',['/admin/produtos/*']) }}" href="/admin/produtos" data-label="Cadastro de Produtos">Produtos</a>
+					<a class="{{ getMenuClass('viewlist-products-groups',['/admin/grupos-de-produtos/*']) }}" 
+						href="/admin/grupos-de-produto" data-label="Cadastro de Grupos de Produto">
+						Grupos de Produto
+					</a>
+					<a class="{{ getMenuClass('viewlist-products',['/admin/produtos/*']) }}" href="/admin/produtos" data-label="Cadastro de Produtos">
+						Produtos
+					</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown {{ currentClass(['/admin/clientes/*']) }}">
@@ -55,7 +70,9 @@ function getMenuClass($permission,$array_current=[]) {
 					<i class="el-icon-star-off mr-2"></i>Clientes
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="{{ getMenuClass('viewlist-customers',['/admin/clientes/*']) }}" href="/admin/clientes" data-label="Cadastro de Clientes">Clientes</a>
+					<a class="{{ getMenuClass('viewlist-customers',['/admin/clientes/*']) }}" href="/admin/clientes" data-label="Cadastro de Clientes">
+						Clientes
+					</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown {{ currentClass(['/admin/relatorios/*']) }}">
@@ -63,8 +80,12 @@ function getMenuClass($permission,$array_current=[]) {
 					<i class="el-icon-data-analysis mr-2"></i>Relatórios
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="{{ getMenuClass('report-customers',['/admin/relatorios/clientes/*']) }}" href="/admin/relatorios/clientes" data-label="Relatório de Clientes">Clientes</a>
-					<a class="{{ getMenuClass('report-products',['/admin/relatorios/produtos/*']) }}" href="/admin/relatorios/produtos" data-label="Relatório de Produtos">Produtos</a>
+					<a class="{{ getMenuClass('report-customers',['/admin/relatorios/clientes/*']) }}" href="/admin/relatorios/clientes" data-label="Relatório de Clientes">
+						Clientes
+					</a>
+					<a class="{{ getMenuClass('report-products',['/admin/relatorios/produtos/*']) }}" href="/admin/relatorios/produtos" data-label="Relatório de Produtos">
+						Produtos
+					</a>
 				</div>
 			</li>
 			<li class="nav-item dropdown {{ currentClass(['/admin/campos-customizados/*']) }}">
