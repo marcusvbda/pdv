@@ -49,6 +49,7 @@ class Caixas extends Resource
 		$columns["user->name"] = ["label" => "Responsável", "sortable_index" => "user_id"];
 		$columns["balance"] = ["label" => "Saldo", "sortable" => false];
 		$columns["f_created_at"] = ["label" => "Data de Abertura", "sortable_index" => "created_at"];
+		$columns["f_closed_at"] = ["label" => "Data de Fechamento", "sortable_index" => "closed_at"];
 		return $columns;
 	}
 
@@ -59,7 +60,7 @@ class Caixas extends Resource
 
 	public function canCreate()
 	{
-		return hasPermissionTo("create-cashiers");
+		return hasPermissionTo("create-cashiers") && Cashier::isOpened()->count() == 0;
 	}
 
 	public function canUpdate()

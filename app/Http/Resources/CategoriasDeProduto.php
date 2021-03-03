@@ -8,9 +8,9 @@ use marcusvbda\vstack\Fields\{
 	Text
 };
 
-class GruposDeProduto extends Resource
+class CategoriasDeProduto extends Resource
 {
-	public $model = \App\Http\Models\ProductGroup::class;
+	public $model = \App\Http\Models\ProductCategory::class;
 
 	public function globallySearchable()
 	{
@@ -19,12 +19,12 @@ class GruposDeProduto extends Resource
 
 	public function label()
 	{
-		return "Grupos de Produto";
+		return "Categorias de Produto";
 	}
 
 	public function singularLabel()
 	{
-		return "Grupo de Produto";
+		return "Categorias de Produto";
 	}
 
 	public function icon()

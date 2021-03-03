@@ -4,9 +4,9 @@ namespace App\Http\Models;
 
 use App\Http\Models\SuperAdminAccessModel;
 
-class ProductGroup extends SuperAdminAccessModel
+class ProductCategory extends SuperAdminAccessModel
 {
-	protected $table = "product_groups";
+	protected $table = "product_categories";
 
 	public function tenant()
 	{

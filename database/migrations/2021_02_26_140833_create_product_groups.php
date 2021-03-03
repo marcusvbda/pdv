@@ -8,7 +8,7 @@ class CreateProductGroups extends Migration
 {
 	public function up()
 	{
-		Schema::create('product_groups', function (Blueprint $table) {
+		Schema::create('product_categories', function (Blueprint $table) {
 			$table->charset = 'utf8mb4';
 			$table->collation = 'utf8mb4_unicode_ci';
 			$table->engine = 'InnoDB';
@@ -31,6 +31,6 @@ class CreateProductGroups extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('product_groups');
+		Schema::dropIfExists('product_categories');
 	}
 }

@@ -26,12 +26,12 @@ class Produtos extends Resource
 
 	public function label()
 	{
-		return "Produtos";
+		return "Produtos e Serviços";
 	}
 
 	public function singularLabel()
 	{
-		return "Produto";
+		return "Produto e Serviço";
 	}
 
 	public function icon()
@@ -49,8 +49,9 @@ class Produtos extends Resource
 		$columns = [];
 		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
 		$columns["name"] = ["label" => "Nome"];
-		$columns["group->name"] = ["label" => "Grupo de Produto", "sortable_index" => "product_group_id"];
 		$columns["f_images"] = ["label" => "Imagem", "sortable" => false];
+		$columns["f_type"] = ["label" => "Tipo de Produto", "sortable_index" => "type"];
+		$columns["category->name"] = ["label" => "Grupo de Produto", "sortable_index" => "product_category_id"];
 		$columns["f_qty"] = ["label" => "Estoque", "sortable_index" => "qty"];
 		$columns["f_price"] = ["label" => "Preço"];
 		return $columns;
@@ -129,27 +130,28 @@ class Produtos extends Resource
 					"field" => "description",
 				]),
 				new BelongsTo([
-					"label" => "Grupo de Produto",
+					"label" => "Categoria de Produto",
 					"required" => true,
 					"description" => "Para classificação e melhor identificação do produto",
-					"model" => \App\Http\Models\ProductGroup::class,
-					"field" => "product_group_id"
+					"model" => \App\Http\Models\ProductCategory::class,
+					"field" => "product_category_id"
+				]),
+				new BelongsTo([
+					"label" => "Tipo de Produto",
+					"required" => true,
+					"description" => "Identifica se é produto físico ou serviço",
+					"options" => Product::$types,
+					"field" => "type"
 				])
 			],
 			"Características" => [
 				new Text([
 					"label" => "Preço",
-					"description" => "Preço Unitário do produto",
+					"description" => "Preço Unitário do produto ou serviço",
 					"field" => "price",
 					"type" => "number",
 					"rules" => ["required", "min:0.01"]
-				]),
-				new Check([
-					"label" => "Permitir estoque negativo",
-					"description" => "Permitir que este produto seja adicionado a uma venda caso seu estoque for zero ou menos, lembrando que ao cadastrar o produto inicialmente seu estoque será zero",
-					"field" => "without_qty",
-					"default" => true
-				]),
+				])
 			]
 		];
 		$cards = [];

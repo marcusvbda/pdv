@@ -1,5 +1,5 @@
 @extends("templates.admin")
-@section('title',"Frente de Caixa")
+@section('title',"Dashboard")
 
 @section('content')
 <h1>Dashboard aqui</h1>

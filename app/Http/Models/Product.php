@@ -14,6 +14,11 @@ class Product extends PoloDefaultModel
 		"without_qty" => "boolean"
 	];
 
+	public static $types = [
+		["id" => "P", "value" => "Produto Físico"],
+		["id" => "S", "value" => "Serviço"],
+	];
+
 	public function setPriceAttribute($value)
 	{
 		$this->attributes["price"] = priceToInt($value);
@@ -38,6 +43,16 @@ class Product extends PoloDefaultModel
 	{
 		return toMoney($this->price);
 	}
+
+	public function getFTypeAttribute()
+	{
+		$type = $this->type;
+		$selected_type = current(array_filter(Self::$types, function ($row) use ($type) {
+			return $row["id"] == $type;
+		}));
+		return $selected_type["value"];
+	}
+
 
 	public function getFImagesAttribute()
 	{
@@ -66,8 +81,8 @@ class Product extends PoloDefaultModel
 		return $this->belongsTo(Tenant::class);
 	}
 
-	public function group()
+	public function category()
 	{
-		return $this->belongsTo(ProductGroup::class, "product_group_id", "id");
+		return $this->belongsTo(ProductCategory::class, "product_category_id", "id");
 	}
 }

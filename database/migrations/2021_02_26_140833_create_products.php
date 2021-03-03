@@ -17,13 +17,13 @@ class CreateProducts extends Migration
 			$table->string('name');
 			$table->longtext('description')->nullable();
 			$table->integer('price')->default(0);
-			$table->boolean('without_qty')->default(true);
+			$table->string('type')->default("P");
 			$table->integer('qty')->default(0);
 			$table->jsonb('custom_fields');
-			$table->unsignedBigInteger('product_group_id')->nullable();
-			$table->foreign('product_group_id')
+			$table->unsignedBigInteger('product_category_id')->nullable();
+			$table->foreign('product_category_id')
 				->references('id')
-				->on('product_groups')
+				->on('product_categories')
 				->onDelete('restrict');
 			$table->unsignedBigInteger('polo_id')->nullable();
 			$table->foreign('polo_id')

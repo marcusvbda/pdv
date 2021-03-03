@@ -1,6 +1,6 @@
 import api from '~/config/libs/axios'
 const models = {
-	product_group: '\\App\\Http\\Models\\ProductGroup',
+	product_group: '\\App\\Http\\Models\\ProductCategory',
 	product: '\\App\\Http\\Models\\Product',
 }
 
@@ -23,7 +23,7 @@ export function getProducts({ state, commit }, category_id) {
 		filters: {
 			order_by: ["name", "desc"],
 			where: {
-				product_group_id: {
+				product_category_id: {
 					"=": category_id
 				}
 			}
