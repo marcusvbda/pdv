@@ -1,6 +1,7 @@
 @extends("templates.default")
 @section('body')
     @include("templates.navbar")
+	@yield("out-content")
     <div class="my-2 container-fluid">
 		@yield("breadcrumb")
 	</div>

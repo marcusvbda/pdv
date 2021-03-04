@@ -45,7 +45,7 @@ class Caixas extends Resource
 	public function table()
 	{
 		$columns = [];
-		$columns["code"] = ["label" => "#", "sortable_index" => "id"];
+		$columns["label"] = ["label" => "#", "sortable_index" => "id"];
 		$columns["user->name"] = ["label" => "Responsável", "sortable_index" => "user_id"];
 		$columns["balance"] = ["label" => "Saldo", "sortable" => false];
 		$columns["f_created_at"] = ["label" => "Data de Abertura", "sortable_index" => "created_at"];
