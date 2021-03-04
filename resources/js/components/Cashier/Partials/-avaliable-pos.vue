@@ -147,6 +147,7 @@ export default {
     }
     footer {
         &.available {
+            font-size: 12px;
             width: 100%;
             display: flex;
             align-items: center;
