@@ -2,17 +2,20 @@
 
 namespace App\Http\Models;
 
-use App\Http\Models\Traits\{HasCustomFields, CastNumbersToInt};
+use App\Http\Models\Traits\{HasCustomFields};
 
 class Product extends PoloDefaultModel
 {
 	use HasCustomFields;
+	public $resource_id = "produtos";
 	protected $table = "products";
 	public $casts = [
 		"custom_fields" => "object",
 		"images" => "array",
 		"without_qty" => "boolean"
 	];
+
+	public $appends = ["f_price"];
 
 	public static $types = [
 		["id" => "P", "value" => "Produto Físico"],
@@ -22,6 +25,16 @@ class Product extends PoloDefaultModel
 	public function setPriceAttribute($value)
 	{
 		$this->attributes["price"] = priceToInt($value);
+	}
+
+	public function setEanttribute($value)
+	{
+		$this->attributes["ean"] = priceToInt($value);
+	}
+
+	public function getEanAttribute()
+	{
+		return $this->attributes["ean"];
 	}
 
 	public function setQtyAttribute($value)

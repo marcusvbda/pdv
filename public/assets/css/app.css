@@ -11509,3 +11509,8 @@ a.el-button:hover {
   margin: 0 1px;
 }
 
+.image-list-preview .image.big {
+  width: 100px;
+  height: 100px;
+}
+

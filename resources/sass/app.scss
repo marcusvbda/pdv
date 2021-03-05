@@ -248,5 +248,10 @@ a {
         border-radius: 100%;
         border: 1px solid #bdc0c2;
         margin: 0 1px;
+
+        &.big {
+            width: 100px;
+            height: 100px;
+        }
     }
 }

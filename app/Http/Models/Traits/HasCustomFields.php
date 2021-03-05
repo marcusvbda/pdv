@@ -9,7 +9,7 @@ trait HasCustomFields
 
 	public function getCustomFields()
 	{
-		return  CustomField::where("resource", "clientes")->get()->pluck("field")->toArray();
+		return  CustomField::where("resource", $this->resource_id)->get()->pluck("field")->toArray();
 	}
 
 	public function setAttribute($key, $value)

@@ -7,6 +7,7 @@ use App\Http\Models\Traits\HasCustomFields;
 class Customer extends PoloDefaultModel
 {
 	use HasCustomFields;
+	public $resource_id = "clientes";
 	protected $table = "customers";
 	public $appends = ["code"];
 	public $casts = [

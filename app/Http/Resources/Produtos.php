@@ -5,7 +5,6 @@ namespace App\Http\Resources;
 use marcusvbda\vstack\Resource;
 use marcusvbda\vstack\Fields\{
 	Card,
-	Check,
 	Text,
 	TextArea,
 	Upload,
@@ -14,6 +13,7 @@ use marcusvbda\vstack\Fields\{
 use App\Http\Models\{Product, CustomField};
 
 use App\Http\Filters\FilterByCustomFields;
+use Auth;
 
 class Produtos extends Resource
 {
@@ -54,6 +54,9 @@ class Produtos extends Resource
 		$columns["category->name"] = ["label" => "Grupo de Produto", "sortable_index" => "product_category_id"];
 		$columns["f_qty"] = ["label" => "Estoque", "sortable_index" => "qty"];
 		$columns["f_price"] = ["label" => "Preço"];
+		foreach (CustomField::where("resource", "produtos")->where("show_in_list", true)->get() as $field) {
+			$columns[$field->field] = ["label" => $field->name, "sortable_index" => "custom_fields->" . $field->field];
+		}
 		return $columns;
 	}
 
@@ -100,7 +103,7 @@ class Produtos extends Resource
 	public function filters()
 	{
 		$filters = [];
-		foreach (CustomField::where("resource", $this->id)->where("make_filter", true)->get() as $field) {
+		foreach (CustomField::where("resource", "produtos")->where("make_filter", true)->get() as $field) {
 			$filters[] = new FilterByCustomFields($field);
 		}
 		return $filters;
@@ -155,7 +158,7 @@ class Produtos extends Resource
 			]
 		];
 		$cards = [];
-		foreach (withCustomFields($this->id, $fields) as $key => $value) {
+		foreach (withCustomFields("produtos", $fields) as $key => $value) {
 			$cards[] = new Card($key, $value);
 		}
 		return $cards;
@@ -169,7 +172,7 @@ class Produtos extends Resource
 			"f_qty" => ["label" => "Estoque"],
 			"price" => ["label" => "Preço"],
 		];
-		foreach (CustomField::where("resource", $this->id)->where("show_in_report", true)->get() as $field) {
+		foreach (CustomField::where("resource", "produtos")->where("show_in_report", true)->get() as $field) {
 			$fields[$field->field] = ["label" => $field->name];
 		}
 		return $fields;

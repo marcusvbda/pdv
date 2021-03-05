@@ -15,6 +15,7 @@ class CreateProducts extends Migration
 			$table->bigIncrements('id');
 			$table->longText('images')->nullable();
 			$table->string('name');
+			$table->string('ean')->nullable();
 			$table->longtext('description')->nullable();
 			$table->integer('price')->default(0);
 			$table->string('type')->default("P");

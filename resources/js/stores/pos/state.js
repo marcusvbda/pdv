@@ -1,11 +1,11 @@
 export default function () {
 	return {
+		models: {
+			product_group: '\\App\\Http\\Models\\ProductCategory',
+			customer: '\\App\\Http\\Models\\Customer',
+			product: '\\App\\Http\\Models\\Product',
+		},
 		cashier: null,
-		permissions: {}
-		// categories_loading: false,
-		// loading_products: {},
-		// categories: {
-		// 	data: []
-		// }
+		permissions: {},
 	}
 }

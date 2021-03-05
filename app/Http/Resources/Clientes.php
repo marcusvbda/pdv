@@ -101,7 +101,7 @@ class Clientes extends Resource
 	public function filters()
 	{
 		$filters = [];
-		foreach (CustomField::where("resource", $this->id)->where("make_filter", true)->get() as $field) {
+		foreach (CustomField::where("resource", "clientes")->where("make_filter", true)->get() as $field) {
 			$filters[] = new FilterByCustomFields($field);
 		}
 		return $filters;
@@ -165,7 +165,7 @@ class Clientes extends Resource
 			]
 		];
 		$cards = [];
-		foreach (withCustomFields($this->id, $fields) as $key => $value) {
+		foreach (withCustomFields("clientes", $fields) as $key => $value) {
 			$cards[] = new Card($key, $value);
 		}
 		return $cards;
@@ -184,7 +184,7 @@ class Clientes extends Resource
 				return $options[$row->accepted_terms ?? false];
 			}],
 		];
-		foreach (CustomField::where("resource", $this->id)->where("show_in_report", true)->get() as $field) {
+		foreach (CustomField::where("resource", "clientes")->where("show_in_report", true)->get() as $field) {
 			$fields[$field->field] = ["label" => $field->name];
 		}
 		return $fields;
