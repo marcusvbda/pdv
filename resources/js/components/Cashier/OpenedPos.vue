@@ -40,13 +40,13 @@
                                 <el-button class="btn-action flex-grow-1" type="info" @click="back">
                                     <div class="d-flex flex-column">
                                         <div>Sair do Frente de Caixa</div>
-                                        <div class="mt-2">( F14 )</div>
+                                        <div class="mt-2">( F12 )</div>
                                     </div>
                                 </el-button>
                                 <el-button class="btn-action flex-grow-1" type="info" @click="close">
                                     <div class="d-flex flex-column">
                                         <div>Finalizar de Caixa</div>
-                                        <div class="mt-2">( F12 )</div>
+                                        <div class="mt-2">( F13 )</div>
                                     </div>
                                 </el-button>
                             </el-button-group>
@@ -83,8 +83,8 @@ export default {
                 f1: this.newSale,
                 f2: this.saleList,
                 f3: this.recieves,
-                f4: this.back,
-                f12: this.close,
+                f12: this.back,
+                f13: this.close,
             }
         },
         cashier() {

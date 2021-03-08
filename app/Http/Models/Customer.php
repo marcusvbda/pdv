@@ -9,7 +9,7 @@ class Customer extends PoloDefaultModel
 	use HasCustomFields;
 	public $resource_id = "clientes";
 	protected $table = "customers";
-	public $appends = ["code"];
+	public $appends = ["f_accepted_terms", "code"];
 	public $casts = [
 		"custom_fields" => "object",
 		"address" => "object",
