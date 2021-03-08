@@ -2,7 +2,9 @@
     <el-dialog
         id="new-sale"
         :visible.sync="dialogVisible"
-        fullscreen
+        width="95%"
+        heigth="650px"
+        top="20"
         :modal-append-to-body="true"
         :append-to-body="true"
         :close-on-press-escape="false"
@@ -13,12 +15,14 @@
             <span class="el-icon-error" />
         </a>
         <header class="opened">Nova Venda</header>
-        <div class="container-fluid py-3">
-            <div class="row">
-                <select-product-customer :sale="sale" v-if="dialogVisible" />
-                <div class="col-md-6 col-sm-12">{{ sale }}</div>
+        <article class="row h-100">
+            <div class="col-6 side right">
+                <select-product :sale="sale" v-if="dialogVisible" />
             </div>
-        </div>
+            <div class="col-6 side left">
+                <div class="container-fluid py-3">{{ sale }}</div>
+            </div>
+        </article>
     </el-dialog>
 </template>
 
@@ -37,7 +41,7 @@ export default {
         }
     },
     components: {
-        'select-product-customer': require('./-select-product-customer.vue').default,
+        'select-product': require('./-select-product.vue').default,
     },
     watch: {
         'selecting.product_id'(val) {
@@ -85,6 +89,8 @@ export default {
     }
     .el-dialog__body {
         padding: 0;
+        max-height: 650px;
+        height: 650px;
     }
 
     .btn-close {
@@ -111,6 +117,19 @@ export default {
     .original_price {
         font-size: 40px;
         font-weight: bold;
+    }
+
+    article {
+        .side {
+            &.right {
+                border-right: 5px solid gray;
+                padding-right: 0;
+            }
+            &.left {
+                border-left: 5px solid gray;
+                padding-left: 0;
+            }
+        }
     }
 }
 </style>

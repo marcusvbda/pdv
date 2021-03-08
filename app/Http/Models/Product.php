@@ -15,7 +15,7 @@ class Product extends PoloDefaultModel
 		"without_qty" => "boolean"
 	];
 
-	public $appends = ["f_price"];
+	public $appends = ["code", "f_price"];
 
 	public static $types = [
 		["id" => "P", "value" => "Produto Físico"],

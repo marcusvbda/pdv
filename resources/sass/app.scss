@@ -250,8 +250,12 @@ a {
         margin: 0 1px;
 
         &.big {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
         }
     }
+}
+
+.w-10 {
+    width: 10%;
 }
