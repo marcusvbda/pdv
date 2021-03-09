@@ -28,12 +28,13 @@
                                 <el-button class="btn-action flex-grow-1" type="info" @click="saleList">
                                     <div class="d-flex flex-column">
                                         <view-sales ref="view_sales" />
-                                        <div>Visualizar Vendas</div>
+                                        <div>Detalhes do Caixa</div>
                                         <div class="mt-2">( F2 )</div>
                                     </div>
                                 </el-button>
                                 <el-button class="btn-action flex-grow-1" type="info" @click="recieves">
                                     <div class="d-flex flex-column">
+                                        <expenses-recieves ref="expenses_recieves" />
                                         <div>Despesas e Recebimentos</div>
                                         <div class="mt-2">( F3 )</div>
                                     </div>
@@ -62,10 +63,10 @@
 import Vue from 'vue'
 import VueHotkey from 'v-hotkey'
 Vue.use(VueHotkey)
-import posStore from '~/stores/pos'
+import cashierStore from '~/stores/cashier'
 export default {
     props: ['_cashier', '_permissions'],
-    store: posStore,
+    store: cashierStore,
     data() {
         return {
             is_avaliable: true,
@@ -73,8 +74,9 @@ export default {
         }
     },
     components: {
-        'new-sales': require('./Partials/new_sales/-new-sales.vue').default,
-        'view-sales': require('./Partials/sales/-view-sales.vue').default,
+        'new-sales': require('./Partials/sales/new_sales/-new-sales.vue').default,
+        'view-sales': require('./Partials/sales/view_sales/-view-sales.vue').default,
+        'expenses-recieves': require('./Partials/expenses/expenses-recieves.vue').default,
     },
     computed: {
         cashier_status() {
@@ -116,7 +118,7 @@ export default {
             this.$refs.view_sales.open()
         },
         recieves() {
-            alert('Ver Despesas e recebimentos')
+            this.$refs.expenses_recieves.open()
         },
         back() {
             this.$confirm('Este caixa continuará aberto, sair da página de vendas ?', 'Confirmação').then(() => {
