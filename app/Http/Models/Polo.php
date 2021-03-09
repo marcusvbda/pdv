@@ -17,6 +17,8 @@ class Polo extends DefaultModel
 		"data" => "object",
 	];
 
+	public $appends = ["complete_address"];
+
 	public static function boot()
 	{
 		parent::boot();
@@ -65,5 +67,10 @@ class Polo extends DefaultModel
 		$data =  @$this->attributes["data"] ? json_decode($this->attributes["data"]) : (object) [];
 		$data->head = $value;
 		$this->attributes["data"] = json_encode($data);
+	}
+
+	public function getCompleteAddressAttribute()
+	{
+		return "Rua : " . @$this->data->street . ", N° " . @$this->data->number . " - " . @$this->data->district . " ( " . @$this->data->city . " - " . @$this->data->state . " )";
 	}
 }

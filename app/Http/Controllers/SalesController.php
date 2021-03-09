@@ -9,8 +9,8 @@ class SalesController extends Controller
 {
 	public function proof($id)
 	{
-		$sale = Sale::findOrFail($id);
-		dd("COMPROVANTE DA VENDA", $sale);
+		$sale = Sale::with(["polo"])->findOrFail($id);
+		return view("admin.sales.proof", compact("sale"));
 	}
 
 	public function storeSale($id, Request $request)

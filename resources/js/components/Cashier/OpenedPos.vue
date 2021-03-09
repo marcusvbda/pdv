@@ -72,7 +72,7 @@ export default {
         }
     },
     components: {
-        'new-sales': require('./Partials/-new-sales.vue').default,
+        'new-sales': require('./Partials/new_sales/-new-sales.vue').default,
     },
     computed: {
         cashier_status() {

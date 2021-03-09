@@ -9,4 +9,14 @@ class Sale extends PoloDefaultModel
 		"data" => "object"
 	];
 	public $appends = ["code"];
+
+	public function polo()
+	{
+		return $this->belongsTo(Polo::class);
+	}
+
+	public function tenant()
+	{
+		return $this->belongsTo(Tenant::class);
+	}
 }

@@ -63,6 +63,13 @@ class B_UsersSeeder extends Seeder
 			"data" => [
 				"head" => true,
 				"city" => "Marilia",
+				"street" => "24 de Dezembro",
+				"number" => "1916",
+				"district" => "Somenzari",
+				"state" => "SP",
+				"doc" => "43.616.914/0001-94",
+				"email" => "email@gmail.com",
+				"phone" => "(14) 3425-4246"
 			],
 		]);
 	}
