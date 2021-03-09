@@ -59,10 +59,11 @@
                             </div>
                         </div>
                         <div class="col-12" v-hotkey="keymap" v-if="dialogVisible">
+                            <finsish-sales ref="modal_payment" :sale="sale" @finished="close" />
                             <el-button type="success" class="w-100" @click="finish" :disabled="!canFinish">
                                 <div class="d-flex flex-row align-items-center justify-content-between">
                                     Finalizar venda ( F4 )
-                                    <span>{{ fTotal.currency() }}</span>
+                                    <span>{{ total.currency() }}</span>
                                 </div>
                             </el-button>
                         </div>
@@ -92,6 +93,7 @@ export default {
         }
     },
     components: {
+        'finsish-sales': require('./-finish-sales.vue').default,
         'select-product': require('./-select-product.vue').default,
         'product-list': require('./-product-list.vue').default,
         'select-customer': require('./-select-customer.vue').default,
@@ -109,6 +111,9 @@ export default {
         },
     },
     computed: {
+        models() {
+            return this.$store.state.models
+        },
         canFinish() {
             return this.sale.items.length > 0
         },
@@ -126,7 +131,7 @@ export default {
         totalItems() {
             return this.sale.items.map((x) => x.qty).reduce((a, b) => Number(a) + Number(b), 0)
         },
-        fTotal() {
+        total() {
             return this.sale.items.map((x) => x.subtotal).reduce((a, b) => Number(a) + Number(b), 0)
         },
         isOpened() {
@@ -139,7 +144,7 @@ export default {
     methods: {
         finish() {
             if (!this.canFinish) return
-            alert('fecha')
+            this.$refs.modal_payment.open()
         },
         open() {
             this.dialogVisible = true

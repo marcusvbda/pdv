@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Http\Request;
-// use Carbon\Carbon;
-use App\Http\Models\{Cashier};
+use App\Http\Models\{Cashier, Sale};
 
 class CashierController extends Controller
 {

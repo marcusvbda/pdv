@@ -90,13 +90,16 @@ function getMenuClass($permission,$array_current=[]) {
 					</a>
 				</div>
 			</li>
-			<li class="nav-item dropdown {{ currentClass(['/admin/campos-customizados/*']) }}">
+			<li class="nav-item dropdown {{ currentClass(['/admin/campos-customizados/*','/admin/configuracoes/estilos/*','/admin/metodos-de-pagamento/*']) }}">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="el-icon-setting mr-2"></i>Configurações
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="{{ getMenuClass('viewlist-customfield',['/admin/campos-customizados/*']) }}" href="/admin/campos-customizados" data-label="Campos Configurações Dinamicamente">
 						Campos Customizados
+					</a>
+					<a class="{{ getMenuClass('viewlist-paymentmethods',['/admin/metodos-de-pagamento/*']) }}" href="/admin/metodos-de-pagamento">
+						Métodos de Pagamento
 					</a>
 					<a class="{{ getMenuClass('config-styles',['/admin/configuracoes/estilos/*']) }}" href="/admin/configuracoes/estilos" data-label="Estilos do Sistema">
 						Estilos

@@ -48,6 +48,12 @@ class A_AclSeeder extends Seeder
 		Permission::create(["group" => "Caixas", "name" => "report-cashiers", "description" => "Ver Relatório de  Caixas"]);
 		Permission::create(["group" => "Caixas", "name" => "view-pos", "description" => "Acessar Frente de Caixa"]);
 
+		Permission::create(["group" => "Métodos de Pagamento", "name" => "viewlist-paymentmethods", "description" => "Ver Listagem de Métodos de Pagamento"]);
+		Permission::create(["group" => "Métodos de Pagamento", "name" => "create-paymentmethods", "description" => "Cadastrar Métodos de Pagamento"]);
+		Permission::create(["group" => "Métodos de Pagamento", "name" => "edit-paymentmethods", "description" => "Editar Métodos de Pagamento"]);
+		Permission::create(["group" => "Métodos de Pagamento", "name" => "destroy-paymentmethods", "description" => "Excluir Métodos de Pagamento"]);
+
+
 		Permission::create(["group" => "Configurações", "name" => "config-styles", "description" => "Configurar Estilos do Sistema"]);
 	}
 

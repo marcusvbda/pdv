@@ -79,17 +79,24 @@
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <label class="mb-0">Desconto ( - R$ )</label>
-                            <input
-                                class="form form-control form-control-sm"
+                            <currency-input
+                                class="form-control form-control-lg"
+                                currency="BRL"
+                                :auto-decimal-mode="true"
                                 v-model="selecting.disccount"
-                                type="number"
                                 min="0"
                                 :max="selected_product.price"
                             />
                         </div>
                         <div class="col-md-6">
                             <label class="mb-0">Acréscimo ( + R$ )</label>
-                            <input class="form form-control form-control-sm" v-model="selecting.addition" type="number" min="0" />
+                            <currency-input
+                                class="form-control form-control-lg"
+                                currency="BRL"
+                                :auto-decimal-mode="true"
+                                v-model="selecting.addition"
+                                min="0"
+                            />
                         </div>
                     </div>
                 </div>
@@ -154,9 +161,11 @@ export default {
         },
         'selecting.disccount'(val) {
             val = Number(val)
-            if (val < 0) this.selecting.addition = 0
-            let price = Number(this.selected_product.price)
-            if (val > price) this.selecting.disccount = price
+            if (this.selected_product) {
+                if (val < 0) this.selecting.addition = 0
+                let price = Number(this.selected_product.price)
+                if (val > price) this.selecting.disccount = price
+            }
         },
     },
     computed: {

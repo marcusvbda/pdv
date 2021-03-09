@@ -23,7 +23,7 @@ class User extends Authenticatable
 	protected $appends = ['code', 'role_id'];
 	protected $hashPassword = false;
 	public  $casts = [
-		"data" => "json",
+		"data" => "object",
 	];
 	public $relations = [];
 

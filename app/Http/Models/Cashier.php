@@ -8,7 +8,7 @@ class Cashier extends PoloDefaultModel
 {
 	protected $table = "cashiers";
 	public $appends = [
-		"code", "f_created_at"
+		"code", "f_created_at", "balance"
 	];
 
 	public function ScopeisOpened($query)
@@ -45,6 +45,7 @@ class Cashier extends PoloDefaultModel
 	public function getBalanceAttribute()
 	{
 		$balance = $this->initial_balance;
+		$balance += $this->sales()->sum("data->payment->total");
 		return toMoney(@$balance ?? 0);
 	}
 
@@ -66,5 +67,10 @@ class Cashier extends PoloDefaultModel
 				$url
 			</div>
 		";
+	}
+
+	public function sales()
+	{
+		return $this->hasMany(Sale::class);
 	}
 }
