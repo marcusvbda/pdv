@@ -46,7 +46,12 @@ class Cashier extends PoloDefaultModel
 	{
 		$balance = $this->initial_balance;
 		$balance += $this->sales()->where("status", "paid")->sum("data->payment->total");
-		return toMoney(@$balance ?? 0);
+		return @$balance ?? 0;
+	}
+
+	public function getFBalanceAttribute()
+	{
+		return toMoney($this->balance);
 	}
 
 	public function getIsOpenedAttribute()

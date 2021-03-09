@@ -72,3 +72,9 @@ export function getExpenses({ state, commit }, payload) {
 		payload.callback(data)
 	})
 }
+
+export function getCashierDetails({ state }, payload) {
+	api.post(`/admin/caixas/${state.cashier.code}/details`).then(({ data }) => {
+		payload.callback(data)
+	})
+}

@@ -3,7 +3,7 @@
         id="sales-modal"
         top="10px"
         :visible.sync="dialogVisible"
-        width="70%"
+        width="80%"
         heigth="500px"
         :modal-append-to-body="true"
         :append-to-body="true"
@@ -14,7 +14,9 @@
         <div class="row">
             <div class="col-12">
                 <el-tabs type="border-card" v-model="tabs">
-                    <el-tab-pane label="Informações" name="detail"> Detalhes </el-tab-pane>
+                    <el-tab-pane label="Informações" name="detail">
+                        <cashier-details v-if="dialogVisible && tabs == 'detail'" />
+                    </el-tab-pane>
                     <el-tab-pane label="Listagem de Vendas" name="salelist">
                         <sale-list />
                     </el-tab-pane>
@@ -34,6 +36,7 @@ export default {
     },
     components: {
         'sale-list': require('./-sale-list.vue').default,
+        'cashier-details': require('./-cashier-details.vue').default,
     },
     computed: {
         cashier() {

@@ -10,10 +10,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-4">
                             <div class="d-flex flex-column justify-content-between w-100">
-                                <div class="d-flex flex-row"><b class="mr-1"> Código do Caixa :</b> {{ cashier.code }}</div>
-                                <div class="d-flex flex-row"><b class="mr-1"> Responsável :</b> {{ cashier.user.name }}</div>
-                                <div class="d-flex flex-row"><b class="mr-1"> Abertura :</b> {{ cashier.f_created_at }}</div>
-                                <div class="d-flex flex-row"><b class="mr-1"> Tempo Aberto :</b> {{ life_time }}</div>
+                                <cashier-infos />
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-8 d-flex align-items-center justify-content-between">
@@ -70,13 +67,13 @@ export default {
     data() {
         return {
             is_avaliable: true,
-            life_time: 'Calculando ...',
         }
     },
     components: {
         'new-sales': require('./Partials/sales/new_sales/-new-sales.vue').default,
         'view-sales': require('./Partials/sales/view_sales/-view-sales.vue').default,
         'expenses-recieves': require('./Partials/expenses/expenses-recieves.vue').default,
+        'cashier-infos': require('./Partials/extra/-cashier-infos.vue').default,
     },
     computed: {
         cashier_status() {
@@ -101,7 +98,6 @@ export default {
     created() {
         this.$nextTick(() => {
             this.setInitialStates()
-            this.initLifeTimeTimer()
         })
     },
     methods: {
@@ -130,18 +126,6 @@ export default {
                 // window.location = this.permissions.viewlist_cashiers ? '/admin/caixas' : '/admin/admin'
                 alert('Inicia encerramento de caixa')
             })
-        },
-        initLifeTimeTimer() {
-            setInterval(() => {
-                let created = this.$moment(this.cashier.created_at)
-                let now = this.$moment(new Date())
-                let diff = now.diff(created)
-                let days = now.diff(created, 'days')
-                let hrs = (parseInt(this.$moment.utc(diff).format('HH')) + days * 24).pad(2)
-                let min = this.$moment.utc(diff).format('mm')
-                let sec = this.$moment.utc(diff).format('ss')
-                this.life_time = [hrs, min, sec].join(':')
-            }, 1000)
         },
     },
 }

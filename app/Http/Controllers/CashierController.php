@@ -40,4 +40,22 @@ class CashierController extends Controller
 		$sale = Sale::where("cashier_id", $cashier_id)->where("id", $sale_id)->with(["polo"])->firstOrFail();
 		return view("admin.sales.proof", compact("sale"));
 	}
+
+	public function details($id)
+	{
+		if (!hasPermissionTo('view-pos')) abort(403);
+		$cashier = Cashier::with("user")->findOrFail($id);
+		$graph_data = $cashier->sales()->where("status", "paid")->groupBy("data->payment->payment_method->name")
+			->selectRaw("sum(json_unquote(json_extract(data, '$.\"payment\".\"total\"'))) as total")
+			->selectRaw("json_unquote(json_extract(data, '$.\"payment\".\"payment_method\".\"name\"')) as payment_method")
+			->get()
+			->pluck("total", "payment_method");
+
+		$balance = $cashier->balance;
+		return [
+			"success" => true,
+			"balance" => $balance,
+			"graph_data" => $graph_data
+		];
+	}
 }

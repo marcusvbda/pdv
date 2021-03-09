@@ -3,7 +3,7 @@
         id="expenses"
         top="10px"
         :visible.sync="dialogVisible"
-        width="50%"
+        width="80%"
         heigth="500px"
         :modal-append-to-body="true"
         :append-to-body="true"
@@ -15,7 +15,7 @@
             <div class="col-12">
                 <el-tabs type="border-card" v-model="tabs">
                     <el-tab-pane label="Lançamentos deste Caixa" name="list">
-                        <expenses-list />
+                        <expenses-list v-if="dialogVisible && tabs == 'list'" />
                     </el-tab-pane>
                     <el-tab-pane label="Novo Lançamento" name="crud">Novo Lançamento</el-tab-pane>
                 </el-tabs>
