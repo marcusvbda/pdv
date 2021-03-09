@@ -13,7 +13,7 @@ class CashierExpense extends PoloDefaultModel
 	public $appends = ["f_created_at", "code", "f_type"];
 	const _TYPES_ = [
 		["value" => "cash_in", "label" => "Entrada"],
-		["value" => "cash_out", "label" => "Cancelada"]
+		["value" => "cash_out", "label" => "Saída"]
 	];
 
 	public function polo()

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Models\{Cashier, Sale};
+use App\Http\Models\{Cashier, Sale, CashierExpense};
 
 class CashierController extends Controller
 {
@@ -16,13 +16,32 @@ class CashierController extends Controller
 
 	public function storeSale($id, Request $request)
 	{
-		if (!hasPermissionTo('view-pos')) abort(403);
 		$cashier = Cashier::with("user")->findOrFail($id);
 		$sale = Sale::create([
 			"cashier_id" => $cashier->id,
 			"data" => $request->all()
 		]);
 		return ["success" => true, "sale" => $sale];
+	}
+
+	public function storeExpense($id, Request $request)
+	{
+		$cashier = Cashier::with("user")->findOrFail($id);
+		$sale = CashierExpense::create([
+			"cashier_id" => $cashier->id,
+			"type" => $request["type"],
+			"data" => $request["data"]
+		]);
+		return ["success" => true];
+	}
+
+	public function destroyExpense($cashier_id, $expense_id)
+	{
+		$expense = CashierExpense::where("cashier_id", $cashier_id)->where("id", $expense_id)->firstOrFail();
+		$cashier = $expense->cashier;
+		if (!$cashier->is_opened) return abort(404);
+		$expense->delete();
+		return ["success" => true];
 	}
 
 	public function cancelSale($cashier_id, $sale_id)
@@ -43,7 +62,6 @@ class CashierController extends Controller
 
 	public function details($id)
 	{
-		if (!hasPermissionTo('view-pos')) abort(403);
 		$cashier = Cashier::with("user")->findOrFail($id);
 		$graph_data = $cashier->sales()->where("status", "paid")->groupBy("data->payment->payment_method->name")
 			->selectRaw("sum(json_unquote(json_extract(data, '$.\"payment\".\"total\"'))) as total")

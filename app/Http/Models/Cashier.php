@@ -46,6 +46,8 @@ class Cashier extends PoloDefaultModel
 	{
 		$balance = $this->initial_balance;
 		$balance += $this->sales()->where("status", "paid")->sum("data->payment->total");
+		$balance += $this->entries()->sum("data->value");
+		$balance -= $this->expenses()->sum("data->value");
 		return @$balance ?? 0;
 	}
 
@@ -77,5 +79,15 @@ class Cashier extends PoloDefaultModel
 	public function sales()
 	{
 		return $this->hasMany(Sale::class);
+	}
+
+	public function expenses()
+	{
+		return $this->hasMany(CashierExpense::class)->where("type", "cash_out");
+	}
+
+	public function entries()
+	{
+		return $this->hasMany(CashierExpense::class)->where("type", "cash_in");
 	}
 }

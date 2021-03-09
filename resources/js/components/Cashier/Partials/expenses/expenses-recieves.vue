@@ -17,7 +17,9 @@
                     <el-tab-pane label="Lançamentos deste Caixa" name="list">
                         <expenses-list v-if="dialogVisible && tabs == 'list'" />
                     </el-tab-pane>
-                    <el-tab-pane label="Novo Lançamento" name="crud">Novo Lançamento</el-tab-pane>
+                    <el-tab-pane label="Novo Lançamento" name="crud">
+                        <crud-expense @finish="tabs = 'list'" />
+                    </el-tab-pane>
                 </el-tabs>
             </div>
         </div>
@@ -28,6 +30,7 @@ export default {
     props: [],
     components: {
         'expenses-list': require('./-expenses-list.vue').default,
+        'crud-expense': require('./-crud-expense.vue').default,
     },
     data() {
         return {

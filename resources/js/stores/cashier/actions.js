@@ -78,3 +78,18 @@ export function getCashierDetails({ state }, payload) {
 		payload.callback(data)
 	})
 }
+
+export function storeExpense({ state }, payload) {
+	api.post(`/admin/caixas/${state.cashier.code}/store-expense`, payload.form).then(({ data }) => {
+		payload.callback(data)
+	})
+}
+
+export function destroyExpense({ state }, payload) {
+
+	api.delete(`/admin/caixas/${state.cashier.code}/expenses/${payload.expense_code}/destroy`).then(({ data }) => {
+		payload.callback(data)
+	})
+}
+
+

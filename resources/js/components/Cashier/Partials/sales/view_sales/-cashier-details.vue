@@ -8,7 +8,7 @@
                 <cashier-infos />
             </div>
             <div class="col-md-6">
-                <pie-chart :data="detail.graph_data" prefix="R$" />
+                <pie-chart :data="detail.graph_data" prefix="R$ " />
             </div>
         </div>
     </div>
