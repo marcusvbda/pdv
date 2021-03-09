@@ -23,4 +23,14 @@ class SalesController extends Controller
 		]);
 		return ["success" => true, "sale" => $sale];
 	}
+
+	public function cancelSale($id)
+	{
+		$sale = Sale::findOrFail($id);
+		$cashier = $sale->cashier;
+		if (!$cashier->is_opened) return abort(404);
+		$sale->status = "canceled";
+		$sale->save();
+		return ["success" => true];
+	}
 }

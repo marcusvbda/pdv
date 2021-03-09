@@ -103,6 +103,7 @@ export default {
                     loading.close()
                     this.openProof(data)
                     this.$emit('finished')
+                    this.$message.success('Venda finalizada com sucesso !!!')
                 },
             })
         },

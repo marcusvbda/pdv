@@ -223,8 +223,8 @@ export default {
                 includes: ['category'],
                 per_page: 30,
                 page: page,
+                order_by: ['name', 'desc'],
                 filters: {
-                    order_by: ['name', 'desc'],
                     where: {
                         name: {
                             like: `%${query}%`,

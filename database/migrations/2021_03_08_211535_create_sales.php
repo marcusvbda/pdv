@@ -14,6 +14,7 @@ class CreateSales extends Migration
 			$table->engine = 'InnoDB';
 			$table->bigIncrements('id');
 			$table->jsonb('data');
+			$table->string('status')->default("paid");
 			$table->unsignedBigInteger('cashier_id')->nullable();
 			$table->foreign('cashier_id')
 				->references('id')

@@ -27,6 +27,7 @@
                                 </el-button>
                                 <el-button class="btn-action flex-grow-1" type="info" @click="saleList">
                                     <div class="d-flex flex-column">
+                                        <view-sales ref="view_sales" />
                                         <div>Visualizar Vendas</div>
                                         <div class="mt-2">( F2 )</div>
                                     </div>
@@ -73,6 +74,7 @@ export default {
     },
     components: {
         'new-sales': require('./Partials/new_sales/-new-sales.vue').default,
+        'view-sales': require('./Partials/sales/-view-sales.vue').default,
     },
     computed: {
         cashier_status() {
@@ -111,7 +113,7 @@ export default {
             this.$refs.new_sales.open()
         },
         saleList() {
-            alert('Ver Vendas')
+            this.$refs.view_sales.open()
         },
         recieves() {
             alert('Ver Despesas e recebimentos')
