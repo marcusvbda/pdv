@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Models\{Cashier, Sale, CashierExpense};
+use marcusvbda\vstack\Services\Messages;
+use Carbon\Carbon;
 
 class CashierController extends Controller
 {
@@ -24,10 +26,19 @@ class CashierController extends Controller
 		return ["success" => true, "sale" => $sale];
 	}
 
+	public function finish($id)
+	{
+		$cashier = Cashier::with("user")->findOrFail($id);
+		$cashier->closed_at = Carbon::now();
+		$cashier->save();
+		Messages::send("success", "Caixa encerrado com sucesso !!");
+		return ["success" => true];
+	}
+
 	public function storeExpense($id, Request $request)
 	{
 		$cashier = Cashier::with("user")->findOrFail($id);
-		$sale = CashierExpense::create([
+		CashierExpense::create([
 			"cashier_id" => $cashier->id,
 			"type" => $request["type"],
 			"data" => $request["data"]
@@ -75,5 +86,11 @@ class CashierController extends Controller
 			"balance" => $balance,
 			"graph_data" => $graph_data
 		];
+	}
+
+	public function conference($id)
+	{
+		$cashier = Cashier::isClosed()->with("user")->findOrFail($id);
+		return view("admin.cashier.conference", compact("cashier"));
 	}
 }

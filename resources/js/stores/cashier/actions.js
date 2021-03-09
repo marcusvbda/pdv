@@ -86,10 +86,13 @@ export function storeExpense({ state }, payload) {
 }
 
 export function destroyExpense({ state }, payload) {
-
 	api.delete(`/admin/caixas/${state.cashier.code}/expenses/${payload.expense_code}/destroy`).then(({ data }) => {
 		payload.callback(data)
 	})
 }
 
-
+export function finishCashier({ state }, payload) {
+	api.post(`/admin/caixas/${state.cashier.code}/finish`).then(({ data }) => {
+		payload.callback(data)
+	})
+}

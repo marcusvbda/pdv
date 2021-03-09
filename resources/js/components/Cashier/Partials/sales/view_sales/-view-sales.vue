@@ -13,9 +13,9 @@
     >
         <div class="row">
             <div class="col-12">
-                <el-tabs type="border-card" v-model="tabs">
+                <el-tabs type="border-card" v-model="tabs" v-if="dialogVisible">
                     <el-tab-pane label="Informações" name="detail">
-                        <cashier-details v-if="dialogVisible && tabs == 'detail'" />
+                        <cashier-details v-if="tabs == 'detail'" />
                     </el-tab-pane>
                     <el-tab-pane label="Listagem de Vendas" name="salelist">
                         <sale-list />
@@ -50,7 +50,6 @@ export default {
         open() {
             this.dialogVisible = true
             this.tabs = 'detail'
-            this.loading = true
         },
     },
 }
@@ -59,18 +58,6 @@ export default {
 #sales-modal {
     .el-dialog__body {
         padding: 25px;
-    }
-    .sale-row {
-        &.paid {
-            td {
-                background-color: #f4fff4;
-            }
-        }
-        &.canceled {
-            td {
-                background-color: #ffe7e7;
-            }
-        }
     }
 }
 </style>

@@ -101,26 +101,18 @@ class Caixas extends Resource
 				"label" => "Usuário",
 				"description" => "Usuário responsável por este caixa",
 				"field" => "user_id",
-				"options" => User::where("name", "!=", "root")->selectRaw("id,name as value")->get(),
+				"options" => User::selectRaw("id,name  as value")->get(),
 				"disabled" => true,
 				"default" => (string)Auth::user()->id,
 				"required" => true
 			]),
-			new Text([
-				"label" => "Data de Abertura",
-				"field" => "created_at",
-				"disabled" => true,
-				"type" => "datetime",
-				"default" => Carbon::now()->format("d/m/Y H:i:s"),
-				"required" => true
-			])
 		]);
 		$cards[] = new Card("Configurações", [
 			new Text([
 				"label" => "Saldo",
 				"description" => "Saldo inicial do caixa, considerar o valor de troco deixado na abertura do caixa",
 				"field" => "initial_balance",
-				"type" => "number",
+				"type" => "currency",
 				"default" => 0,
 				"required" => true
 			])

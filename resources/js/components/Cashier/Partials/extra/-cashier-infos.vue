@@ -30,6 +30,7 @@ export default {
                 let now = this.$moment(new Date())
                 let diff = now.diff(created)
                 let days = now.diff(created, 'days')
+                days = days > 0 ? days : 0
                 let hrs = (parseInt(this.$moment.utc(diff).format('HH')) + days * 24).pad(2)
                 let min = this.$moment.utc(diff).format('mm')
                 let sec = this.$moment.utc(diff).format('ss')

@@ -152,7 +152,7 @@ class Produtos extends Resource
 					"label" => "Preço",
 					"description" => "Preço Unitário do produto ou serviço",
 					"field" => "price",
-					"type" => "number",
+					"type" => "currency",
 					"rules" => ["required", "min:0.01"]
 				])
 			]

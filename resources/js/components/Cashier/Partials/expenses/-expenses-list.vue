@@ -1,6 +1,6 @@
 <template>
     <div id="expense-list">
-        <template v-if="list.data.length">
+        <template v-if="list.data.length || cashier.initial_balance">
             <div class="d-flex flex-row mb-3">
                 <div class="d-flex justify-content-start align-items-center">
                     <span class="d-flex flex-row align-items-center f-12"> <span v-html="$getEnabledIcons(true)" class="mr-1" />Entrada </span>
@@ -27,16 +27,25 @@
                                 <th class="f-12">Descrição</th>
                                 <th class="f-12">Valor</th>
                                 <th class="f-12">Tipo</th>
-                                <th class="f-12 w-10" />
+                                <th class="f-12 w-10" v-if="!isOnlyView" />
                             </tr>
                         </thead>
                         <tbody>
+                            <template v-if="cashier.initial_balance">
+                                <tr class="expense-row cash_in">
+                                    <td class="f-12">-</td>
+                                    <td class="f-12">Saldo Inicial de Caixa</td>
+                                    <td class="f-12">{{ cashier.initial_balance.currency() }}</td>
+                                    <td class="f-12">Entrada</td>
+                                    <td class="f-12" v-if="!isOnlyView" />
+                                </tr>
+                            </template>
                             <tr v-for="(row, i) in list.data" :key="i" :class="`expense-row ${row.type}`">
                                 <td class="f-12">{{ row.code }}</td>
                                 <td class="f-12">{{ row.data.description }}</td>
                                 <td class="f-12">{{ row.data.value.currency() }}</td>
                                 <td class="f-12">{{ row.f_type }}</td>
-                                <td class="f-12">
+                                <td class="f-12" v-if="!isOnlyView">
                                     <el-button-group size="mini">
                                         <el-button type="danger" size="mini" icon="el-icon-error" @click="destroy(row)" />
                                     </el-button-group>
@@ -57,11 +66,20 @@ const getInitialList = () => ({
     last_page: 0,
 })
 export default {
+    props: ['only_view'],
     data() {
         return {
             list: getInitialList(),
             loading: true,
         }
+    },
+    computed: {
+        cashier() {
+            return this.$store.state.cashier
+        },
+        isOnlyView() {
+            return this.only_view != undefined
+        },
     },
     created() {
         this.list = getInitialList()

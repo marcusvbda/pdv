@@ -22,7 +22,7 @@
                                 <th class="f-12">Forma de Pagto</th>
                                 <th class="f-12">Data/Hora</th>
                                 <th class="f-12">Status</th>
-                                <th class="f-12 w-10" />
+                                <th class="f-12 w-10" v-if="!isOnlyView" />
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +33,7 @@
                                 <td class="f-12">{{ sale.data.payment.payment_method.name }}</td>
                                 <td class="f-12">{{ sale.f_created_at }}</td>
                                 <td class="f-12">{{ sale.f_status }}</td>
-                                <td class="f-12 w-10">
+                                <td class="f-12 w-10" v-if="!isOnlyView">
                                     <el-button-group size="mini">
                                         <el-button type="primary" size="mini" icon="el-icon-search" @click="seeProof(sale)" />
                                         <el-button type="danger" size="mini" icon="el-icon-error" @click="cancelSale(sale)" v-if="sale.status != 'canceled'" />
@@ -55,11 +55,17 @@ const getInitialList = () => ({
     last_page: 0,
 })
 export default {
+    props: ['only_view'],
     data() {
         return {
             list: getInitialList(),
             loading: true,
         }
+    },
+    computed: {
+        isOnlyView() {
+            return this.only_view != undefined
+        },
     },
     created() {
         this.getSales(++this.list.current_page)
@@ -95,3 +101,17 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+.sale-row {
+    &.paid {
+        td {
+            background-color: #f4fff4;
+        }
+    }
+    &.canceled {
+        td {
+            background-color: #ffe7e7;
+        }
+    }
+}
+</style>

@@ -11,6 +11,15 @@ class Cashier extends PoloDefaultModel
 		"code", "f_created_at", "balance"
 	];
 
+	public $dates = [
+		"created_at", "updated_at", "closed_at"
+	];
+
+	public function ScopeisClosed($query)
+	{
+		$query->whereNotNull("closed_at");
+	}
+
 	public function ScopeisOpened($query)
 	{
 		$query->whereNull("closed_at");
@@ -67,6 +76,7 @@ class Cashier extends PoloDefaultModel
 		if (hasPermissionTo(('view-pos'))) {
 			$code = $this->code;
 			if ($this->is_opened) $url = "<a href='/admin/caixas/$code/frente-de-caixa'>Abrir Frente de Caixa</a>";
+			else $url = $this->conference_badge;
 		}
 		return "
 			<div class='d-flex flex-column'>
@@ -89,5 +99,24 @@ class Cashier extends PoloDefaultModel
 	public function entries()
 	{
 		return $this->hasMany(CashierExpense::class)->where("type", "cash_in");
+	}
+
+	public function getConferenceBadgeAttribute()
+	{
+		$conference = $this->conference;
+		$code = $this->code;
+		if (!$conference) {
+			return "<b class='d-flex flex-row align-items-center mt-2'>
+						<a href='/admin/caixas/$code/conferencia' class='text-danger '><span class='text-danger el-icon-warning mr-1'></span>Faça a conferência deste caixa !!</a>
+					</b>";
+		}
+		return "<b class='d-flex flex-row align-items-center mt-2'>
+					<a href='/admin/caixas/$code/conferencia' class='text-muted'>Ver Detalhadamente</a>
+				</b>";
+	}
+
+	public function conference()
+	{
+		return $this->hasOne(CashierConference::class);
 	}
 }

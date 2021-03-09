@@ -32,7 +32,7 @@
                                 <el-button class="btn-action flex-grow-1" type="info" @click="recieves">
                                     <div class="d-flex flex-column">
                                         <expenses-recieves ref="expenses_recieves" />
-                                        <div>Despesas e Recebimentos</div>
+                                        <div>Lançamentos de Caixa</div>
                                         <div class="mt-2">( F3 )</div>
                                     </div>
                                 </el-button>
@@ -44,7 +44,8 @@
                                 </el-button>
                                 <el-button class="btn-action flex-grow-1" type="info" @click="close">
                                     <div class="d-flex flex-column">
-                                        <div>Finalizar de Caixa</div>
+                                        <cashier-conference ref="cashier_conference" />
+                                        <div>Encerrar Caixa</div>
                                         <div class="mt-2">( F13 )</div>
                                     </div>
                                 </el-button>
@@ -72,8 +73,9 @@ export default {
     components: {
         'new-sales': require('./Partials/sales/new_sales/-new-sales.vue').default,
         'view-sales': require('./Partials/sales/view_sales/-view-sales.vue').default,
-        'expenses-recieves': require('./Partials/expenses/expenses-recieves.vue').default,
         'cashier-infos': require('./Partials/extra/-cashier-infos.vue').default,
+        'expenses-recieves': require('./Partials/expenses/-expenses-recieves.vue').default,
+        'cashier-conference': require('./Partials/conference/-cashier-conference.vue').default,
     },
     computed: {
         cashier_status() {
@@ -123,8 +125,7 @@ export default {
         },
         close() {
             this.$confirm('Encerrar vendas deste caixa ?', 'Confirmação').then(() => {
-                // window.location = this.permissions.viewlist_cashiers ? '/admin/caixas' : '/admin/admin'
-                alert('Inicia encerramento de caixa')
+                this.$refs.cashier_conference.open()
             })
         },
     },
