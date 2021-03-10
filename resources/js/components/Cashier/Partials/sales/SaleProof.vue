@@ -91,7 +91,7 @@ export default {
             return this.customer.doc ?? 'Sem CPF/CNPJ'
         },
         name_customer() {
-            return this.customer.doc ?? 'Consumidor Padrão'
+            return this.customer.name ?? 'Consumidor Padrão'
         },
     },
 }

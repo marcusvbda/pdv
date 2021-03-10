@@ -17,7 +17,7 @@
 @endsection
 @section("content")
 <table-conference
-	cashier_id='{{$cashier->id}}'
+	cashier_id='{{$cashier->id}}' complete
 >
 </table-conference>
 @endsection

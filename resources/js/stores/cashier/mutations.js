@@ -1,9 +1,13 @@
 // import Vue from 'vue'
 
 export function setInitialStates(state, payload) {
-	state.cashier = payload.cashier
+	this.commit("setCashier", payload.cashier)
 	state.permissions = payload.permissions
 	this.dispatch("getPaymentMethods")
+}
+
+export function setCashier(state, payload) {
+	state.cashier = payload
 }
 
 export function setPaymentMethods(state, payload) {

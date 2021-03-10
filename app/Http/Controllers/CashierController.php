@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Models\{Cashier, Sale, CashierExpense};
+use App\Http\Models\{Cashier, CashierConference, Sale, CashierExpense};
 use marcusvbda\vstack\Services\Messages;
 use Carbon\Carbon;
+use Auth;
 
 class CashierController extends Controller
 {
@@ -92,5 +93,43 @@ class CashierController extends Controller
 	{
 		$cashier = Cashier::isClosed()->with("user")->findOrFail($id);
 		return view("admin.cashier.conference", compact("cashier"));
+	}
+
+	public function getConference($id)
+	{
+		$cashier = Cashier::with("user")->findOrFail($id);
+		$current_conference = $cashier->conference()->with("user")->first();
+		$conference_data = $cashier->sales()
+			->where("status", "paid")
+			->groupBy("data->payment->payment_method->name")
+			->selectRaw("sum(json_unquote(json_extract(data, '$.\"payment\".\"total\"'))) as total")
+			->selectRaw("json_unquote(json_extract(data, '$.\"payment\".\"payment_method\".\"name\"')) as payment_method")
+			->get()
+			->pluck("total", "payment_method")
+			->toArray();
+
+		if (!$current_conference) {
+			$current_conference = ["data" => []];
+			foreach (array_keys($conference_data) as $key) $current_conference["data"][$key] = 0;
+		}
+		return [
+			"success" => true,
+			"conference_data" => $conference_data,
+			"current_conference" => $current_conference,
+			"total_cash_in" => $cashier->entries()->sum("data->value"),
+			"total_cash_out" => $cashier->expenses()->sum("data->value"),
+		];
+	}
+
+	public function conferenceStore($id, Request $request)
+	{
+		$user = Auth::user();
+		CashierConference::where("cashier_id", $id)->delete();
+		CashierConference::create([
+			"cashier_id" => $id,
+			"data" => $request->all(),
+			"user_id" => $user->id
+		]);
+		return ["success" => true];
 	}
 }

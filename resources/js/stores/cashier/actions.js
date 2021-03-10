@@ -96,3 +96,35 @@ export function finishCashier({ state }, payload) {
 		payload.callback(data)
 	})
 }
+
+export function getCashier({ state, commit }, payload) {
+	let params = {
+		model: state.models.cashier,
+		includes: ["user"],
+		filters: {
+			where: {
+				id: {
+					"=": payload.cashier_id
+				},
+			},
+		}
+
+	}
+	api.post('/vstack/json-api', params).then(({ data }) => {
+		commit("setCashier", data[0])
+		payload.callback(data)
+	})
+}
+
+export function getCashierConference({ commit, state }, payload) {
+	api.post(`/admin/caixas/${state.cashier.code}/get-conference`).then(({ data }) => {
+		payload.callback(data)
+	})
+}
+
+
+export function storeCashierConference({ commit, state }, payload) {
+	api.post(`/admin/caixas/${state.cashier.code}/store-conference`, payload.current_conference).then(({ data }) => {
+		payload.callback(data)
+	})
+}

@@ -6,6 +6,7 @@ export default function () {
 			product: '\\App\\Http\\Models\\Product',
 			sale: '\\App\\Http\\Models\\Sale',
 			cashier_expense: '\\App\\Http\\Models\\CashierExpense',
+			cashier: '\\App\\Http\\Models\\Cashier',
 		},
 		payment_methods: [],
 		cashier: null,

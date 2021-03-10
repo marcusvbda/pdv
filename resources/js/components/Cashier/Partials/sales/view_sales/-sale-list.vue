@@ -1,5 +1,8 @@
 <template>
     <div>
+        <h4 v-if="title">
+            <b>{{ title }}</b>
+        </h4>
         <template v-if="list.data.length">
             <div class="d-flex flex-row mb-3">
                 <div class="d-flex justify-content-start align-items-center">
@@ -55,7 +58,7 @@ const getInitialList = () => ({
     last_page: 0,
 })
 export default {
-    props: ['only_view'],
+    props: ['only_view', 'title'],
     data() {
         return {
             list: getInitialList(),

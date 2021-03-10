@@ -8,7 +8,7 @@ class Cashier extends PoloDefaultModel
 {
 	protected $table = "cashiers";
 	public $appends = [
-		"code", "f_created_at", "balance"
+		"code", "f_created_at", "balance", "f_closed_at"
 	];
 
 	public $dates = [
@@ -75,7 +75,7 @@ class Cashier extends PoloDefaultModel
 		$url = "";
 		if (hasPermissionTo(('view-pos'))) {
 			$code = $this->code;
-			if ($this->is_opened) $url = "<a href='/admin/caixas/$code/frente-de-caixa'>Abrir Frente de Caixa</a>";
+			if ($this->is_opened) $url = "<a class='link f-12' href='/admin/caixas/$code/frente-de-caixa'>Abrir Frente de Caixa</a>";
 			else $url = $this->conference_badge;
 		}
 		return "
@@ -106,13 +106,17 @@ class Cashier extends PoloDefaultModel
 		$conference = $this->conference;
 		$code = $this->code;
 		if (!$conference) {
-			return "<b class='d-flex flex-row align-items-center mt-2'>
-						<a href='/admin/caixas/$code/conferencia' class='text-danger '><span class='text-danger el-icon-warning mr-1'></span>Faça a conferência deste caixa !!</a>
-					</b>";
+			return "<div class='d-flex flex-row align-items-center mt-2'>
+						<a href='/admin/caixas/$code/conferencia' class='text-danger f-12'>
+							<span class='text-danger el-icon-warning mr-1'></span>Faça a conferência deste caixa !!
+						</a>
+					</div>";
 		}
-		return "<b class='d-flex flex-row align-items-center mt-2'>
-					<a href='/admin/caixas/$code/conferencia' class='text-muted'>Ver Detalhadamente</a>
-				</b>";
+		return "<div class='d-flex flex-row align-items-center mt-2'>
+					<a href='/admin/caixas/$code/conferencia' class='text-success f-12'>
+						<span class='text-success el-icon-success mr-1'></span>Visualizar Conferência
+					</a>
+				</div>";
 	}
 
 	public function conference()

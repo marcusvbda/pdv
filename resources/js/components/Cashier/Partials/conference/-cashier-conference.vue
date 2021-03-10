@@ -23,9 +23,6 @@
                     <el-tab-pane label="Lançamentos" name="expenses">
                         <expenses-list v-if="tabs == 'expenses'" only_view />
                     </el-tab-pane>
-                    <el-tab-pane label="Conferência" name="conference">
-                        <table-conference v-if="tabs == 'conference'" :cashier_id="cashier.id" />
-                    </el-tab-pane>
                 </el-tabs>
             </div>
         </div>

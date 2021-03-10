@@ -3,7 +3,7 @@
         <div class="row d-flex align-items-center">
             <div class="col-md-6">
                 <h2>
-                    <b>Saldo : {{ detail.balance.currency() }} </b>
+                    <b>Total : {{ detail.balance.currency() }} </b>
                 </h2>
                 <cashier-infos />
             </div>
