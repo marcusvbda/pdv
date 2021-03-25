@@ -30,11 +30,9 @@ export function getSales({ state, commit }, payload) {
 		per_page: 10,
 		order_by: ['id', 'desc'],
 		filters: {
-			where: {
-				cashier_id: {
-					"=": state.cashier.id
-				},
-			},
+			where: [
+				["cashier_id", "=", state.cashier.id]
+			]
 		}
 
 	}
@@ -60,11 +58,9 @@ export function getExpenses({ state, commit }, payload) {
 		per_page: 10,
 		order_by: ['id', 'desc'],
 		filters: {
-			where: {
-				cashier_id: {
-					"=": state.cashier.id
-				},
-			},
+			where: [
+				["cashier_id", "=", state.cashier.id]
+			]
 		}
 
 	}
@@ -102,11 +98,9 @@ export function getCashier({ state, commit }, payload) {
 		model: state.models.cashier,
 		includes: ["user"],
 		filters: {
-			where: {
-				id: {
-					"=": payload.cashier_id
-				},
-			},
+			where: [
+				["id", "=", payload.cashier_id]
+			]
 		}
 
 	}

@@ -166,16 +166,10 @@ export default {
                 page: page,
                 order_by: ['name', 'desc'],
                 filters: {
-                    where: {
-                        name: {
-                            like: `%${query}%`,
-                        },
-                    },
-                    or_where: {
-                        doc: {
-                            like: `%${query}%`,
-                        },
-                    },
+                    or_where: [
+                        ['name', 'like', `%${query}%`],
+                        ['doc', 'like', `%${query}%`],
+                    ],
                 },
             }
             this.$http.post('/vstack/json-api', params, { retries: 3 }).then(({ data }) => {
