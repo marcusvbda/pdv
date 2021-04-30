@@ -31,6 +31,11 @@ class Permissoes extends Resource
 		return "el-icon-lock";
 	}
 
+	public function canClone()
+	{
+		return false;
+	}
+
 	public function search()
 	{
 		return ["name", "description", "group"];

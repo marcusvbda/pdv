@@ -88,6 +88,11 @@ class Clientes extends Resource
 		return hasPermissionTo("report-customers");
 	}
 
+	public function canClone()
+	{
+		return false;
+	}
+
 	public function canImport()
 	{
 		return false;

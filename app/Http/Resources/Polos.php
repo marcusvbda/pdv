@@ -73,6 +73,11 @@ class Polos extends Resource
 		return false;
 	}
 
+	public function canClone()
+	{
+		return false;
+	}
+
 	public function canViewList()
 	{
 		return Auth::user()->hasRole(["super-admin", "admin"]);

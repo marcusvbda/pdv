@@ -39,6 +39,11 @@ class MetodosDePagamento extends Resource
 		return ["name"];
 	}
 
+	public function canClone()
+	{
+		return false;
+	}
+
 	public function table()
 	{
 		$columns = [];

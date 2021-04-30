@@ -29,6 +29,11 @@ class Convites extends Resource
 		return false;
 	}
 
+	public function canClone()
+	{
+		return false;
+	}
+
 	public function canDelete()
 	{
 		return false;

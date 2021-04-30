@@ -31,6 +31,11 @@ class GruposDeAcesso extends Resource
 		return "Grupo de Acesso";
 	}
 
+	public function canClone()
+	{
+		return false;
+	}
+
 	public function icon()
 	{
 		return "el-icon-lock";
